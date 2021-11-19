@@ -9,7 +9,7 @@ import {
   Logo,
   Button,
   Footer,
-} from "../styledComponents/auth/auth.styled";
+} from "../styledComponents/authPages/auth.styled";
 
 import AuthLayout from "../layouts/auth/auth";
 
@@ -32,7 +32,7 @@ const Register = () => {
       <Title title="create an account" />
       <Card>
         <Logo>
-          <img alt="bonds logo" src="/assets/logo/bonds2.png" width="100px" />
+          <img alt="bonds logo" src="/assets/logo/bonds.png" width="100px" />
         </Logo>
         <>
           <div>

@@ -1,7 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Link from "next/link";
-import Image from "next/image";
 
 import Title from "../components/title";
 import {
@@ -10,7 +9,7 @@ import {
   Input,
   Button,
   Footer,
-} from "../styledComponents/auth/auth.styled";
+} from "../styledComponents/authPages/auth.styled";
 
 import AuthLayout from "../layouts/auth/auth";
 
@@ -33,7 +32,7 @@ const Login = () => {
       <Title title="login Page" />
       <Card>
         <Logo>
-          <img alt="bonds logo" src="/assets/logo/bonds2.png" width="100px" />
+          <img alt="bonds logo" src="/assets/logo/bonds.png" width="100px" />
         </Logo>
         <>
           <div>

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import HomeLayout from "../layouts/home/home";
 
 export default function Home() {
   return (
@@ -18,3 +18,7 @@ export default function Home() {
     </>
   );
 }
+
+Home.getLayout = function PageLayout(page) {
+  return <HomeLayout>{page}</HomeLayout>;
+};
