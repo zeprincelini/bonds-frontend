@@ -1,17 +1,5 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("./assets/images/main.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-
 export const Card = styled.div`
   background-color: rgba(78, 75, 75, 0.7);
   border-radius: 10px;
@@ -27,7 +15,7 @@ export const Card = styled.div`
   }
   h3 {
     text-align: center;
-    color: #ffffff;
+    color: #fff;
     margin: 20px;
   }
 `;
@@ -48,12 +36,17 @@ export const Input = styled.input`
 export const Button = styled.button`
   width: 100%;
   background-color: #343237;
+  border: none;
   border-radius: 10px;
   padding: 10px;
   color: #fff;
   font-weight: bold;
   margin-top: 30px;
   cursor: pointer;
+
+  &:focus {
+    transform: scale(1.02);
+  }
 `;
 
 export const Footer = styled.div`
