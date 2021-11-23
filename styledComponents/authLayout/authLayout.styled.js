@@ -4,10 +4,21 @@ export const Container = styled.div`
   height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+`;
+
+export const ContainerImage = styled.div`
+  flex: 1;
   background-image: url("/assets/images/main.jpg");
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+`;
+
+export const ContainerForm = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

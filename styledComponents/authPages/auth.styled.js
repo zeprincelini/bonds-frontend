@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-  background-color: rgba(78, 75, 75, 0.7);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  margin-right: 30px;
+  margin-right: 0px;
   width: 400px;
   height: 400px;
   display: flex;
@@ -28,7 +28,7 @@ export const Logo = styled.div`
 export const Input = styled.input`
   width: 100%;
   height: 20px;
-  border: none;
+  border: 1px solid gray;
   border-radius: 10px;
   padding: 18px;
 `;
@@ -54,6 +54,8 @@ export const Footer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
   p {
     color: #ffffff;
 
