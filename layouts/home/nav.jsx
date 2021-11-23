@@ -1,15 +1,18 @@
 import Link from "next/link";
-import { Container, Search } from "../../styledComponents/Homepage/home.styled";
+import {
+  Navigation,
+  Search,
+} from "../../styledComponents/Homepage/home.styled";
 
 const NavBar = () => {
   return (
-    <Container>
+    <Navigation>
       <Link href="/">
         <a>
           <img
-            src="/assets/logo/bonds.png"
+            src="/assets/logo/bondz.png"
             alt="logo"
-            width="100px"
+            width="150px"
             height="auto"
           />
         </a>
@@ -26,16 +29,16 @@ const NavBar = () => {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/">Profile</Link>
+          <Link href="/profile">Profile</Link>
         </li>
         <li>
-          <Link href="/">Bonds</Link>
+          <Link href="/bonds">Bonds</Link>
         </li>
         <li>
-          <Link href="/">Inbox</Link>
+          <Link href="/inbox">Inbox</Link>
         </li>
       </ul>
-    </Container>
+    </Navigation>
   );
 };
 

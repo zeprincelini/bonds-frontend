@@ -32,7 +32,7 @@ const Register = () => {
       <Title title="create an account" />
       <Card>
         <Logo>
-          <img alt="bonds logo" src="/assets/logo/bonds.png" width="100px" />
+          <img alt="bonds logo" src="/assets/logo/bondz.png" width="100px" />
         </Logo>
         <>
           <div>

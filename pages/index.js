@@ -12,9 +12,7 @@ export default function Home() {
           content="social network, bonds, relationshp, friendshp, love, fun, entertainment"
         />
       </Head>
-      <div>
-        <h1>next js time</h1>
-      </div>
+      <h3>testing</h3>
     </>
   );
 }
