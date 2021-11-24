@@ -28,14 +28,17 @@ export const Logo = styled.div`
 export const Input = styled.input`
   width: 100%;
   height: 20px;
-  border: 1px solid gray;
+  border: 1px solid #bfbfbf;
   border-radius: 10px;
   padding: 18px;
+  &:focus {
+    outline-color: gray;
+  }
 `;
 
 export const Button = styled.button`
   width: 100%;
-  background-color: #343237;
+  background-color: #f04f2f;
   border: none;
   border-radius: 10px;
   padding: 10px;
@@ -50,7 +53,7 @@ export const Button = styled.button`
 `;
 
 export const Footer = styled.div`
-  background-color: #4e4b4b;
+  background-color: #f04f2f;
   display: flex;
   align-items: center;
   justify-content: center;

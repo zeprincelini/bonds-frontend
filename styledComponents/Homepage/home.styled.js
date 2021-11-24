@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Navigation = styled.div`
   width: 100%;
   height: 50px;
-  background-color: #4e4b4b;
+  background-color: #ffffff;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,9 +17,14 @@ export const Navigation = styled.div`
 
     li {
       list-style: none;
-      color: #fff;
+      color: #4e4b4b;
       padding: 5px;
       cursor: pointer;
+      &:hover {
+        background: #f04f2f;
+        border-radius: 7px;
+        color: #ffffff;
+      }
     }
   }
 `;
@@ -30,7 +36,7 @@ export const Search = styled.div`
   height: 35px;
   display: flex;
   align-items: center;
-
+  border: 1px solid #c7c7c7;
   input[type="search"] {
     border: none;
     width: 90%;
@@ -43,7 +49,7 @@ export const Search = styled.div`
 `;
 
 export const FooterStyle = styled.div`
-  background-color: #4e4b4b;
+  background-color: #f04f2f;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -80,12 +86,12 @@ export const WrapperLeftLinks = styled.a`
   width: 80%;
   margin-bottom: 10px;
   background: ${(props) =>
-    props.href === props.pathname ? "#4e4b4b;" : "none;"}
+    props.href === props.pathname ? "#f04f2f;" : "none;"}
   cursor: pointer;
   color: ${(props) => (props.href === props.pathname ? "#ffffff;" : "#4e4b4b;")}
   transition: 0.5s ease;
   &:hover {
-    background: #4e4b4b;
+    background: #f04f2f;
     color: #ffffff;
   }
   li {

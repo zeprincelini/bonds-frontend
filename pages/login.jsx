@@ -32,7 +32,11 @@ const Login = () => {
       <Title title="login Page" />
       <Card>
         <Logo>
-          <img alt="bonds logo" src="/assets/logo/bondz.png" width="100px" />
+          <img
+            alt="bonds logo"
+            src="/assets/logo/bondss-02.png"
+            width="200px"
+          />
         </Logo>
         <>
           <div>

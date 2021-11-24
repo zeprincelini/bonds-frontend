@@ -10,7 +10,7 @@ const NavBar = () => {
       <Link href="/">
         <a>
           <img
-            src="/assets/logo/bondz.png"
+            src="/assets/logo/bondss-02.png"
             alt="logo"
             width="150px"
             height="auto"
