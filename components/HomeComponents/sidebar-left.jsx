@@ -1,7 +1,13 @@
 import Link from "next/dist/client/link";
 import { useRouter } from "next/dist/client/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faCog, faList } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSignOutAlt,
+  faCog,
+  faList,
+  faPlay,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   WrapperLeft,
   WrapperLeftLinks,
@@ -11,6 +17,114 @@ const SideBarLeft = () => {
   const router = useRouter();
   return (
     <WrapperLeft>
+      <Link href="/posts" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faList} />
+          <li>Posts</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/settings" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faCog} />
+          <li>Settings</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/logout" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faPlay} />
+          <li>Videos</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/posts" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faUsers} />
+          <li>Groups</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/settings" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faCog} />
+          <li>Settings</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/logout" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          <li>Log out</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/posts" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faList} />
+          <li>Posts</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/settings" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faCog} />
+          <li>Settings</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/logout" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          <li>Log out</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/posts" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faList} />
+          <li>Posts</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/settings" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faCog} />
+          <li>Settings</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/logout" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          <li>Log out</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/posts" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faList} />
+          <li>Posts</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/settings" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faCog} />
+          <li>Settings</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/logout" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          <li>Log out</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/posts" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faList} />
+          <li>Posts</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/settings" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faCog} />
+          <li>Settings</li>
+        </WrapperLeftLinks>
+      </Link>
+      <Link href="/logout" passHref>
+        <WrapperLeftLinks pathname={router.pathname}>
+          <FontAwesomeIcon icon={faSignOutAlt} />
+          <li>Log out</li>
+        </WrapperLeftLinks>
+      </Link>
       <Link href="/posts" passHref>
         <WrapperLeftLinks pathname={router.pathname}>
           <FontAwesomeIcon icon={faList} />

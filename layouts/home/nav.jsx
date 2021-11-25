@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
   Navigation,
   Search,
@@ -18,6 +20,10 @@ const NavBar = () => {
         </a>
       </Link>
       <Search>
+        <FontAwesomeIcon
+          icon={faSearch}
+          style={{ marginLeft: "10px", color: "gray" }}
+        />
         <input
           type="search"
           name="search"

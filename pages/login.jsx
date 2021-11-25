@@ -63,14 +63,9 @@ const Login = () => {
             </form>
           </div>
           <Footer>
-            <p>
-              Don't have an account?{" "}
-              <span>
-                <Link href="register">
-                  <a>Register now</a>
-                </Link>
-              </span>
-            </p>
+            <Link href="register">
+              <a>Don't have an account? Register now</a>
+            </Link>
           </Footer>
         </>
       </Card>

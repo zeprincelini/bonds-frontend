@@ -53,18 +53,15 @@ export const Button = styled.button`
 `;
 
 export const Footer = styled.div`
-  background-color: #f04f2f;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  p {
-    color: #ffffff;
-
-    span {
-      font-weight: bold;
-      cursor: pointer;
-    }
+  a {
+    color: #f04f2f;
+    cursor: pointer;
+    margin-bottom: 15px;
   }
 `;

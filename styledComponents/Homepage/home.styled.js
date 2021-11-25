@@ -104,6 +104,73 @@ export const WrapperLeftLinks = styled.a`
 
 export const WrapperMid = styled.div`
   flex: 6.5;
+  padding: 30px;
+`;
+
+/* wrapperMid section */
+
+export const Post = styled.div`
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  textarea {
+    border: none;
+    width: 90%;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    background: green;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+`;
+
+export const Posts = styled.div`
+  margin-top: 40px;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  .postTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .postTopLeft {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+  .postFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .postLikes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+`;
+
+export const PostIcon = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  p {
+    font-weight: 600;
+  }
 `;
 
 export const WrapperRight = styled.div`

@@ -63,14 +63,9 @@ const Register = () => {
             </form>
           </div>
           <Footer>
-            <p>
-              Already have an account?{" "}
-              <span>
-                <Link href="login">
-                  <a>Login</a>
-                </Link>
-              </span>
-            </p>
+            <Link href="login">
+              <a>Already have an account? Login</a>
+            </Link>
           </Footer>
         </>
       </Card>
