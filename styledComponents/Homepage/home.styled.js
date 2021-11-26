@@ -9,6 +9,9 @@ export const Navigation = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px 10px;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
 
   ul {
     display: flex;
@@ -68,13 +71,16 @@ export const Wrapper = styled.div`
 export const WrapperLeft = styled.div`
   height: calc(100vh - 50px);
   position: sticky;
+  top: 0px;
   overflow-y: scroll;
   flex: 2.5;
+  padding: 0px 10px;
   &::-webkit-scrollbar {
     width: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background: gray;
+    background: #c1c1c1;
+    border-radius: 20px;
   }
 `;
 
@@ -83,7 +89,7 @@ export const WrapperLeftLinks = styled.a`
   align-items: center;
   gap: 15px;
   padding: 10px;
-  width: 80%;
+  width: 90%;
   margin-bottom: 10px;
   background: ${(props) =>
     props.href === props.pathname ? "#f04f2f;" : "none;"}
@@ -98,7 +104,24 @@ export const WrapperLeftLinks = styled.a`
     list-style: none;
   }
   &:first-child {
-    margin-top: 10px;
+    margin-top: 20px;
+  }
+`;
+
+export const WrapperLeftFriends = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  padding: 10px;
+  width: 90%;
+  margin-bottom: 10px;
+  transition: 0.5s ease;
+  &:hover {
+    background: #e5e5e5;
+  }
+  li {
+    list-style: none;
   }
 `;
 
@@ -175,4 +198,51 @@ export const PostIcon = styled.div`
 
 export const WrapperRight = styled.div`
   flex: 3;
+  padding: 5px;
+  .b-day {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    p {
+      color: gray;
+    }
+    span {
+      color: #000000;
+      font-weight: 500;
+    }
+  }
+  .ad {
+    img {
+      border-radius: 10px;
+      background-size: contain;
+    }
+  }
+  .online {
+    h3 {
+      color: gray;
+    }
+    .online-cover {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .friend {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      .icon {
+        position: relative;
+        .notification {
+          position: absolute;
+          top: 0px;
+          right: 0px;
+          width: 10px;
+          height: 10px;
+          background: green;
+          border-radius: 50%;
+          border: 1px solid #ffffff;
+        }
+      }
+    }
+  }
 `;
