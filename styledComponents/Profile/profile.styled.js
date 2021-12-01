@@ -20,12 +20,63 @@ export const Banner = styled.div`
   .bannerUserImg {
     border: 3px solid #ffffff;
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     position: absolute;
     left: 0;
     right: 0;
     margin: auto;
     top: 77%;
+  }
+`;
+
+export const ProfileUser = styled.div`
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span:first-child {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  span:last-child {
+    color: gray;
+    font-size: 14px;
+  }
+`;
+
+export const ProfileBody = styled.div`
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  .profileBodyLeft {
+    flex: 2;
+  }
+  .profileBodyRight {
+    flex: 1;
+    .userInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: gray;
+      }
+    }
+    .friends {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      .img {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        align-items: center;
+      }
+    }
   }
 `;

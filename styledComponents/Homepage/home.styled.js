@@ -71,7 +71,7 @@ export const Wrapper = styled.div`
 export const WrapperLeft = styled.div`
   height: calc(100vh - 50px);
   position: sticky;
-  top: 0px;
+  top: 50px;
   overflow-y: scroll;
   flex: 2.5;
   padding: 0px 10px;
