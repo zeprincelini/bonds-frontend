@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Link from "next/link";
+import axios from "axios";
 
 import Title from "../components/title";
 import {
@@ -12,8 +13,17 @@ import {
 } from "../styledComponents/authPages/auth.styled";
 
 import AuthLayout from "../layouts/auth/auth";
+import { Sign_In } from "../http-requests/api";
 
 const Login = () => {
+  const loginUser = async (val) => {
+    try {
+      const res = await axios.post(Sign_In, val);
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const validation = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
@@ -24,7 +34,7 @@ const Login = () => {
       password: "",
     },
     // validate: validation,
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => loginUser(values),
   });
 
   return (
@@ -63,7 +73,7 @@ const Login = () => {
             </form>
           </div>
           <Footer>
-            <Link href="register">
+            <Link href="/register">
               <a>Don't have an account? Register now</a>
             </Link>
           </Footer>

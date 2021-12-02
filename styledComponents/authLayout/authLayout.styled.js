@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const ContainerImage = styled.div`
   flex: 1;
-  background-image: url("/assets/images/main.jpg");
+  background-image: url("/assets/images/pic.jpg");
   width: 100%;
   height: 100%;
   background-size: cover;
