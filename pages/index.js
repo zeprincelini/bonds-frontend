@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   faEllipsisV,
   faFile,
@@ -16,9 +17,19 @@ import {
   PostIcon,
   Posts,
 } from "../styledComponents/Homepage/home.styled";
-import { FriendsPosts } from "../http-requests/api";
+import { FriendsPosts, GetUser } from "../http-requests/api";
+import { format } from "timeago.js";
 
 export default function Home({ posts }) {
+  const [user, setUser] = useState();
+  const fetchUser = async (val) => {
+    const res = await axios.get(`${GetUser}/${val}`, {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
+      },
+    });
+    setUser(res.data.data);
+  };
   return (
     <>
       <Head>
@@ -66,72 +77,83 @@ export default function Home({ posts }) {
         </div>
       </Post>
       {posts.length > 0 ? (
-        posts.map((post) => (
-          <Posts key={post._id}>
-            <div className="postTop">
-              <div className="postTopLeft">
-                <img
-                  src="https://picsum.photos/50/50"
-                  style={{ borderRadius: "50%" }}
-                />
-                <p>Jordan Pierce</p>
-                <p style={{ color: "gray", fontSize: "13px" }}>5 mins ago</p>
-              </div>
-              <div className="postTopRight">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </div>
-            </div>
-            <div className="postBody">
-              <img
-                src="assets/images/ppl.jpg"
-                width="100%"
-                height="auto"
-                style={{ objectFit: "contain" }}
-              />
-            </div>
-            <div className="postFooter">
-              <div className="postLikes">
-                <div
-                  style={{
-                    borderRadius: "50%",
-                    background: "skyblue",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "4px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => like()}
-                >
-                  <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
-                </div>
-                <div
-                  style={{
-                    borderRadius: "50%",
-                    background: "red",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "4px",
-                    cursor: "pointer",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faHeart} color="#ffffff" />
-                </div>
-                {post.length > 0 ? (
-                  <p style={{ color: "gray" }}>
-                    {post.likes.length} people liked this people liked this
+        posts.map((post) => {
+          useEffect(() => {
+            fetchUser(post.userId);
+          }, []);
+          return (
+            <Posts key={post._id}>
+              <div className="postTop">
+                <div className="postTopLeft">
+                  <img
+                    src="https://picsum.photos/50/50"
+                    style={{ borderRadius: "50%" }}
+                  />
+                  {user && post.userId === user._id ? (
+                    <p>{user.username}</p>
+                  ) : (
+                    <p>John doe</p>
+                  )}
+                  <p style={{ color: "gray", fontSize: "13px" }}>
+                    {format(post.createdAt)}
                   </p>
-                ) : (
-                  ""
-                )}
+                </div>
+                <div className="postTopRight">
+                  <FontAwesomeIcon icon={faEllipsisV} />
+                </div>
               </div>
-              <div className="postComments">
-                <p style={{ color: "gray" }}>9 comments</p>
+              <div className="postBody">
+                <img
+                  src="assets/images/ppl.jpg"
+                  width="100%"
+                  height="auto"
+                  style={{ objectFit: "contain" }}
+                />
               </div>
-            </div>
-          </Posts>
-        ))
+              <div className="postFooter">
+                <div className="postLikes">
+                  <div
+                    style={{
+                      borderRadius: "50%",
+                      background: "skyblue",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "4px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => like()}
+                  >
+                    <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
+                  </div>
+                  <div
+                    style={{
+                      borderRadius: "50%",
+                      background: "red",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "4px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faHeart} color="#ffffff" />
+                  </div>
+                  {post.length > 0 ? (
+                    <p style={{ color: "gray" }}>
+                      {post.likes.length} people liked this people liked this
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="postComments">
+                  <p style={{ color: "gray" }}>9 comments</p>
+                </div>
+              </div>
+            </Posts>
+          );
+        })
       ) : (
         <p style={{ color: "gray", fontSize: "14px" }}>no posts yet!</p>
       )}
@@ -145,7 +167,9 @@ export async function getServerSideProps(context) {
       Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
     },
   });
+
   const data = res.data.data;
+
   return {
     props: { posts: data },
   };
