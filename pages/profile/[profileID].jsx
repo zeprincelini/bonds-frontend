@@ -11,24 +11,24 @@ import {
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProfileLayout from "../layouts/profile/profile";
+import ProfileLayout from "../../layouts/profile/profile";
 import {
   Banner,
   ProfileBody,
   ProfileUser,
-} from "../styledComponents/Profile/profile.styled";
+} from "../../styledComponents/Profile/profile.styled";
 import {
   Posts,
   PostIcon,
   Post,
-} from "../styledComponents/Homepage/home.styled";
+} from "../../styledComponents/Homepage/home.styled";
 
 const Profile = () => {
   return (
     <>
       <Banner>
         <img
-          src="assets/images/banner.jpg"
+          src="/assets/images/banner.jpg"
           alt="banner"
           className="bannerImg"
         />

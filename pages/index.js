@@ -9,14 +9,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
+import axios from "axios";
 import HomeLayout from "../layouts/home/home";
 import {
   Post,
   PostIcon,
   Posts,
 } from "../styledComponents/Homepage/home.styled";
+import { FriendsPosts } from "../http-requests/api";
 
-export default function Home() {
+export default function Home({ posts }) {
   return (
     <>
       <Head>
@@ -63,63 +65,90 @@ export default function Home() {
           <button>share</button>
         </div>
       </Post>
-      <Posts>
-        <div className="postTop">
-          <div className="postTopLeft">
-            <img
-              src="https://picsum.photos/50/50"
-              style={{ borderRadius: "50%" }}
-            />
-            <p>Jordan Pierce</p>
-            <p style={{ color: "gray", fontSize: "13px" }}>5 mins ago</p>
-          </div>
-          <div className="postTopRight">
-            <FontAwesomeIcon icon={faEllipsisV} />
-          </div>
-        </div>
-        <div className="postBody">
-          <img
-            src="assets/images/ppl.jpg"
-            width="100%"
-            height="auto"
-            style={{ objectFit: "contain" }}
-          />
-        </div>
-        <div className="postFooter">
-          <div className="postLikes">
-            <div
-              style={{
-                borderRadius: "50%",
-                background: "skyblue",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "4px",
-              }}
-            >
-              <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <Posts key={post._id}>
+            <div className="postTop">
+              <div className="postTopLeft">
+                <img
+                  src="https://picsum.photos/50/50"
+                  style={{ borderRadius: "50%" }}
+                />
+                <p>Jordan Pierce</p>
+                <p style={{ color: "gray", fontSize: "13px" }}>5 mins ago</p>
+              </div>
+              <div className="postTopRight">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </div>
             </div>
-            <div
-              style={{
-                borderRadius: "50%",
-                background: "red",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "4px",
-              }}
-            >
-              <FontAwesomeIcon icon={faHeart} color="#ffffff" />
+            <div className="postBody">
+              <img
+                src="assets/images/ppl.jpg"
+                width="100%"
+                height="auto"
+                style={{ objectFit: "contain" }}
+              />
             </div>
-            <p>23 people liked this</p>
-          </div>
-          <div className="postComments">
-            <p style={{ color: "gray" }}>9 comments</p>
-          </div>
-        </div>
-      </Posts>
+            <div className="postFooter">
+              <div className="postLikes">
+                <div
+                  style={{
+                    borderRadius: "50%",
+                    background: "skyblue",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "4px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => like()}
+                >
+                  <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
+                </div>
+                <div
+                  style={{
+                    borderRadius: "50%",
+                    background: "red",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "4px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faHeart} color="#ffffff" />
+                </div>
+                {post.length > 0 ? (
+                  <p style={{ color: "gray" }}>
+                    {post.likes.length} people liked this people liked this
+                  </p>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="postComments">
+                <p style={{ color: "gray" }}>9 comments</p>
+              </div>
+            </div>
+          </Posts>
+        ))
+      ) : (
+        <p style={{ color: "gray", fontSize: "14px" }}>no posts yet!</p>
+      )}
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const res = await axios(`${FriendsPosts}/617c9c8d663f24849bc63d1a`, {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
+    },
+  });
+  const data = res.data.data;
+  return {
+    props: { posts: data },
+  };
 }
 
 Home.getLayout = function PageLayout(page) {
