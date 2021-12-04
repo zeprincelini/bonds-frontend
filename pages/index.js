@@ -17,19 +17,10 @@ import {
   PostIcon,
   Posts,
 } from "../styledComponents/Homepage/home.styled";
-import { FriendsPosts, GetUser } from "../http-requests/api";
+import { FriendsPosts } from "../http-requests/api";
 import { format } from "timeago.js";
 
 export default function Home({ posts }) {
-  const [user, setUser] = useState();
-  const fetchUser = async (val) => {
-    const res = await axios.get(`${GetUser}/${val}`, {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
-      },
-    });
-    setUser(res.data.data);
-  };
   return (
     <>
       <Head>
@@ -78,22 +69,19 @@ export default function Home({ posts }) {
       </Post>
       {posts.length > 0 ? (
         posts.map((post) => {
-          useEffect(() => {
-            fetchUser(post.userId);
-          }, []);
           return (
             <Posts key={post._id}>
               <div className="postTop">
                 <div className="postTopLeft">
                   <img
-                    src="https://picsum.photos/50/50"
+                    src={
+                      post.user.profilePicture
+                        ? post.user.profilePicture
+                        : "https://picsum.photos/50/50"
+                    }
                     style={{ borderRadius: "50%" }}
                   />
-                  {user && post.userId === user._id ? (
-                    <p>{user.username}</p>
-                  ) : (
-                    <p>John doe</p>
-                  )}
+                  <p>{post.user.username}</p>
                   <p style={{ color: "gray", fontSize: "13px" }}>
                     {format(post.createdAt)}
                   </p>
