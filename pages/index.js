@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import {
   faEllipsisV,
   faFile,
@@ -19,8 +19,19 @@ import {
 } from "../styledComponents/Homepage/home.styled";
 import { FriendsPosts } from "../http-requests/api";
 import { format } from "timeago.js";
+import { useSelector } from "react-redux";
 
 export default function Home({ posts }) {
+  // const { token } = useSelector((state) => state.sign_in);
+
+  const handleFile = useRef();
+  const grabFile = () => {
+    handleFile.current.click();
+  };
+  const uploadFile = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+  };
   return (
     <>
       <Head>
@@ -48,9 +59,10 @@ export default function Home({ posts }) {
             justifyContent: "center",
           }}
         >
-          <PostIcon>
+          <PostIcon onClick={grabFile}>
             <FontAwesomeIcon icon={faFile} color="red" />
             <p>Photo or Video</p>
+            <input type="file" ref={handleFile} onChange={uploadFile} hidden />
           </PostIcon>
           <PostIcon>
             <FontAwesomeIcon icon={faTag} color="green" />
@@ -150,9 +162,11 @@ export default function Home({ posts }) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await axios(`${FriendsPosts}/617c9c8d663f24849bc63d1a`, {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const { id } = JSON.parse(localStorage.getItem("user"));
+  const res = await axios.get(`${FriendsPosts}/${id}`, {
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
+      Authorization: `Bearer ${token}`,
     },
   });
 

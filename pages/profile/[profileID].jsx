@@ -23,7 +23,10 @@ import {
   Post,
 } from "../../styledComponents/Homepage/home.styled";
 
-const Profile = () => {
+import axios from "axios";
+import { GetUser } from "../../http-requests/api";
+
+const Profile = ({ posts }) => {
   return (
     <>
       <Banner>
@@ -35,7 +38,7 @@ const Profile = () => {
         <img src="https://picsum.photos/50/50" className="bannerUserImg" />
       </Banner>
       <ProfileUser>
-        <span>John Doe</span>
+        <span>{posts.username}</span>
         <span>Nice to meet you</span>
       </ProfileUser>
       <ProfileBody>
@@ -185,6 +188,42 @@ const Profile = () => {
     </>
   );
 };
+
+export async function getStaticProps(context) {
+  const res = await axios.get(`${GetUser}/${context.params.profileId}`, {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
+    },
+  });
+
+  const data = res.data.data;
+
+  return {
+    props: { posts: data },
+  };
+}
+
+export async function getStaticPaths() {
+  const res = await axios.get(`${GetUser}/accounts`, {
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
+    },
+  });
+
+  const allusers = res.data;
+
+  const ids = allusers.map((id) => {
+    return id._id;
+  });
+
+  const paths = ids.map((id) => {
+    return { params: { profileId: id.toString() } };
+  });
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
 export default Profile;
 

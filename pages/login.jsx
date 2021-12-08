@@ -13,17 +13,22 @@ import {
 } from "../styledComponents/authPages/auth.styled";
 
 import AuthLayout from "../layouts/auth/auth";
-import { Sign_In } from "../http-requests/api";
+// import { Sign_In } from "../http-requests/api";
+import { LoginUser } from "../redux/features/api";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
-  const loginUser = async (val) => {
-    try {
-      const res = await axios.post(Sign_In, val);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.sign_in);
+  const { error } = useSelector((state) => state.sign_in);
+  // const loginUser = async (val) => {
+  //   try {
+  //     const res = await axios.post(Sign_In, val);
+  //     console.log(res.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   const validation = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
@@ -34,7 +39,7 @@ const Login = () => {
       password: "",
     },
     // validate: validation,
-    onSubmit: (values) => loginUser(values),
+    onSubmit: (values) => LoginUser(values, dispatch),
   });
 
   return (
@@ -69,7 +74,7 @@ const Login = () => {
                   value={formik.values.password}
                 />
               </div>
-              <Button type="submit">Login</Button>
+              <Button type="submit">{loading ? "Loading" : "Login"}</Button>
             </form>
           </div>
           <Footer>
