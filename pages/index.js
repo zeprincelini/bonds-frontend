@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import cookies from "js-cookie";
 import {
   faEllipsisV,
   faFile,
@@ -162,9 +163,9 @@ export default function Home({ posts }) {
 }
 
 export async function getServerSideProps(context) {
-  const token = JSON.parse(localStorage.getItem("token"));
-  const { id } = JSON.parse(localStorage.getItem("user"));
-  const res = await axios.get(`${FriendsPosts}/${id}`, {
+  const token = context.req.cookies["token"];
+  const id = context.req.cookies["id"];
+  const res = await axios.get(`${FriendsPosts}/${JSON.parse(id)}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

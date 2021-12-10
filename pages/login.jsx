@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Link from "next/link";
-import axios from "axios";
+import React from "react";
 
 import Title from "../components/title";
 import {
@@ -13,7 +13,6 @@ import {
 } from "../styledComponents/authPages/auth.styled";
 
 import AuthLayout from "../layouts/auth/auth";
-// import { Sign_In } from "../http-requests/api";
 import { LoginUser } from "../redux/features/api";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,14 +20,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.sign_in);
   const { error } = useSelector((state) => state.sign_in);
-  // const loginUser = async (val) => {
-  //   try {
-  //     const res = await axios.post(Sign_In, val);
-  //     console.log(res.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
   const validation = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
