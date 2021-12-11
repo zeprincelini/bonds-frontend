@@ -18,8 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.sign_in);
-  const { error } = useSelector((state) => state.sign_in);
+  const { loading } = useSelector((state) => state.loginReducer);
+  const { error } = useSelector((state) => state.loginReducer);
   const validation = yup.object({
     email: yup.string().required(),
     password: yup.string().required(),
