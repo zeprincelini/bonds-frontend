@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from "next/router";
 
 import Title from "../components/title";
 import {
@@ -17,20 +18,24 @@ import { LoginUser } from "../redux/features/api";
 import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.loginReducer);
   const { error } = useSelector((state) => state.loginReducer);
   const validation = yup.object({
-    email: yup.string().required(),
-    password: yup.string().required(),
+    email: yup
+      .string()
+      .email("please enter a valid email")
+      .required("Required"),
+    password: yup.string().required("Required"),
   });
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
-    // validate: validation,
-    onSubmit: (values) => LoginUser(values, dispatch),
+    validationSchema: validation,
+    onSubmit: (values) => LoginUser(values, dispatch, router),
   });
 
   return (
@@ -48,6 +53,17 @@ const Login = () => {
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div style={{ marginBottom: "20px" }}>
+                {formik.errors.email ? (
+                  <div
+                    style={{
+                      color: "red",
+                      fontSize: "13px",
+                      marginBottom: "2px",
+                    }}
+                  >
+                    {formik.errors.email}
+                  </div>
+                ) : null}
                 <Input
                   type="email"
                   name="email"
@@ -57,6 +73,17 @@ const Login = () => {
                 />
               </div>
               <div style={{ marginBottom: "20px" }}>
+                {formik.errors.password ? (
+                  <div
+                    style={{
+                      color: "red",
+                      fontSize: "13px",
+                      marginBottom: "2px",
+                    }}
+                  >
+                    {formik.errors.password}
+                  </div>
+                ) : null}
                 <Input
                   type="password"
                   name="password"
@@ -78,6 +105,22 @@ const Login = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+
+  if (token) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}
 
 export default Login;
 

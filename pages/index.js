@@ -23,8 +23,6 @@ import { format } from "timeago.js";
 import { useSelector } from "react-redux";
 
 export default function Home({ posts }) {
-  // const { token } = useSelector((state) => state.loginReducer);
-  // const { id } = useSelector((state) => state.loginReducer);
   const handleFile = useRef();
   const grabFile = () => {
     handleFile.current.click();
@@ -166,6 +164,14 @@ export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
   const id = context.req.cookies["id"];
 
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
   const res = await axios.get(`${FriendsPosts}/${JSON.parse(id)}`, {
     headers: {
       Authorization: `Bearer ${token}`,
