@@ -132,7 +132,7 @@ export const WrapperMid = styled.div`
 
 /* wrapperMid section */
 
-export const Post = styled.div`
+export const Post = styled.form`
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   width: 100%;

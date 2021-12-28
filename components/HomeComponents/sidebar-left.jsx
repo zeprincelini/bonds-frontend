@@ -3,6 +3,7 @@ import { useRouter } from "next/dist/client/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSignOutAlt,
+  faHome,
   faCog,
   faList,
   faPlay,
@@ -22,10 +23,10 @@ const SideBarLeft = () => {
   const router = useRouter();
   return (
     <WrapperLeft>
-      <Link href="/posts" passHref>
+      <Link href="/" passHref>
         <WrapperLeftLinks pathname={router.pathname}>
-          <FontAwesomeIcon icon={faList} />
-          <li>Posts</li>
+          <FontAwesomeIcon icon={faHome} />
+          <li>Home</li>
         </WrapperLeftLinks>
       </Link>
       <Link href="/logout" passHref>

@@ -6,5 +6,6 @@ export const Sign_In = url + "/auth/login";
 export const Sign_Up = url + "/auth/register";
 
 export const FriendsPosts = url + "/post/friends/posts";
+export const PostBase = url + "/post";
 
 export const GetUser = url + "/user";

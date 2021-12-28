@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import cookies from "js-cookie";
 import {
   faEllipsisV,
   faFile,
@@ -18,36 +17,80 @@ import {
   PostIcon,
   Posts,
 } from "../styledComponents/Homepage/home.styled";
-import { FriendsPosts } from "../http-requests/api";
+import { FriendsPosts, PostBase } from "../http-requests/api";
 import { format } from "timeago.js";
 import { useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/dist/client/router";
 
 export default function Home({ posts }) {
+  const { token, id } = useSelector((state) => state.loginReducer);
+  const router = useRouter();
   const handleFile = useRef();
+  const desc = useRef();
+  const [img, setImg] = useState();
   const grabFile = () => {
     handleFile.current.click();
   };
   const uploadFile = (e) => {
-    const file = e.target.files[0];
-    console.log(file);
+    setImg(e.target.files[0]);
+  };
+
+  const createPost = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("user", id);
+    formData.append("description", desc.current.value),
+      formData.append("postImg", img);
+    try {
+      const res = await axios.post(`${PostBase}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "file.type",
+        },
+      });
+      toast.success(res.data.message);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const likePost = async (postId) => {
+    try {
+      const res = await axios.put(
+        `${PostBase}/${postId}/like`,
+        { userId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.message);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>
+      <Toaster />
       <Head>
         <title>Bonds</title>
         <meta charSet="utf-8" />
         <meta
           name="keywords"
-          content="social network, bonds, relationshp, friendshp, love, fun, entertainment"
+          content="social network, bonds, relationship, friendship, love, fun, entertainment"
         />
       </Head>
-      <Post>
+      <Post onSubmit={createPost} encType="multipart/form-data">
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
           <img
             src="https://picsum.photos/50/50"
             style={{ borderRadius: "50%" }}
           />
-          <textarea placeholder="What's on your mind?"></textarea>
+          <textarea placeholder="What's on your mind?" ref={desc}></textarea>
         </div>
         <hr style={{ width: "90%", marginTop: "20px", marginBottom: "20px" }} />
         <div
@@ -61,7 +104,14 @@ export default function Home({ posts }) {
           <PostIcon onClick={grabFile}>
             <FontAwesomeIcon icon={faFile} color="red" />
             <p>Photo or Video</p>
-            <input type="file" ref={handleFile} onChange={uploadFile} hidden />
+            <input
+              type="file"
+              ref={handleFile}
+              accept=".png,.jpg,.jpeg"
+              onChange={uploadFile}
+              name="postImg"
+              hidden
+            />
           </PostIcon>
           <PostIcon>
             <FontAwesomeIcon icon={faTag} color="green" />
@@ -75,13 +125,16 @@ export default function Home({ posts }) {
             <FontAwesomeIcon icon={faSmile} color="orange" />
             <p>Feelings</p>
           </PostIcon>
-          <button>share</button>
+          <button type="submit">share</button>
         </div>
       </Post>
       {posts.length > 0 ? (
         posts.map((post) => {
           return (
-            <Posts key={post._id}>
+            <Posts
+              key={post._id}
+              onClick={() => router.replace(`post/${post._id}`)}
+            >
               <div className="postTop">
                 <div className="postTopLeft">
                   <img
@@ -121,7 +174,7 @@ export default function Home({ posts }) {
                       padding: "4px",
                       cursor: "pointer",
                     }}
-                    onClick={() => like()}
+                    onClick={() => likePost(post._id)}
                   >
                     <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
                   </div>
@@ -138,16 +191,16 @@ export default function Home({ posts }) {
                   >
                     <FontAwesomeIcon icon={faHeart} color="#ffffff" />
                   </div>
-                  {post.length > 0 ? (
-                    <p style={{ color: "gray" }}>
-                      {post.likes.length} people liked this people liked this
+                  {post.likes.length > 0 ? (
+                    <p style={{ color: "gray", fontSize: "14px" }}>
+                      {post.likes.length} person/people liked this
                     </p>
                   ) : (
                     ""
                   )}
                 </div>
                 <div className="postComments">
-                  <p style={{ color: "gray" }}>9 comments</p>
+                  <p style={{ color: "gray", fontSize: "14px" }}>9 comments</p>
                 </div>
               </div>
             </Posts>

@@ -24,9 +24,9 @@ import {
 } from "../../styledComponents/Homepage/home.styled";
 
 import axios from "axios";
-import { GetUser } from "../../http-requests/api";
+import { GetUser, PostBase } from "../../http-requests/api";
 
-const Profile = ({ posts }) => {
+const Profile = ({ user }) => {
   return (
     <>
       <Banner>
@@ -38,7 +38,7 @@ const Profile = ({ posts }) => {
         <img src="https://picsum.photos/50/50" className="bannerUserImg" />
       </Banner>
       <ProfileUser>
-        <span>{posts.username}</span>
+        <span>{user.username}</span>
         <span>Nice to meet you</span>
       </ProfileUser>
       <ProfileBody>
@@ -160,26 +160,12 @@ const Profile = ({ posts }) => {
             <div className="userFriends">
               <h3>Bonds</h3>
               <div className="friends">
-                <div className="img">
-                  <img src="https://picsum.photos/80/80" />
-                  <span>Jane doe</span>
-                </div>
-                <div className="img">
-                  <img src="https://picsum.photos/80/80" />
-                  <span>Jane doe</span>
-                </div>
-                <div className="img">
-                  <img src="https://picsum.photos/80/80" />
-                  <span>Jane doe</span>
-                </div>
-                <div className="img">
-                  <img src="https://picsum.photos/80/80" />
-                  <span>Jane doe</span>
-                </div>
-                <div className="img">
-                  <img src="https://picsum.photos/80/80" />
-                  <span>Jane doe</span>
-                </div>
+                {user.followers.concat(user.following).map((bonds, id) => (
+                  <div className="img" key={id}>
+                    <img src="https://picsum.photos/80/80" />
+                    <span>Jane doe</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -189,41 +175,67 @@ const Profile = ({ posts }) => {
   );
 };
 
-export async function getStaticProps(context) {
-  const res = await axios.get(`${GetUser}/${context.params.profileId}`, {
+export const getServerSideProps = async (context) => {
+  const token = context.req.cookies["token"];
+  const profileId = context.params.profileId;
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  const res = await axios.get(`${GetUser}/${profileId}`, {
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
   const data = res.data.data;
 
   return {
-    props: { posts: data },
+    props: { user: data },
   };
-}
+};
 
-export async function getStaticPaths() {
-  const res = await axios.get(`${GetUser}/accounts`, {
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxN2M5YzhkNjYzZjI0ODQ5YmM2M2QxYSIsImVtYWlsIjoia2lhQGtsby5jb20iLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNjM4NDg2MTEyfQ.YEb3T8Vhnyk6jEmr7Hl2k3VPmPQNVJkdTQR6th8tzNg`,
-    },
-  });
+// export async function getStaticProps(context) {
+//   const token = context.req.cookies["token"];
+//   const res = await axios.get(`${GetUser}/${context.params.profileId}`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
 
-  const allusers = res.data;
+//   const data = res.data.data;
 
-  const ids = allusers.map((id) => {
-    return id._id;
-  });
+//   return {
+//     props: { posts: data },
+//   };
+// }
 
-  const paths = ids.map((id) => {
-    return { params: { profileId: id.toString() } };
-  });
-  return {
-    paths,
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   const res = await axios.get(`${GetUser}/accounts`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+
+//   const allusers = res.data;
+
+//   const ids = allusers.map((id) => {
+//     return id._id;
+//   });
+
+//   const paths = ids.map((id) => {
+//     return { params: { profileId: id.toString() } };
+//   });
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 export default Profile;
 

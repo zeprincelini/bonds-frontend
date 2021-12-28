@@ -5,7 +5,7 @@ export const Card = styled.div`
   border-radius: 10px;
   margin-right: 0px;
   width: 400px;
-  height: 400px;
+  height: ${(props) => props.height};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

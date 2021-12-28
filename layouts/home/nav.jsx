@@ -5,8 +5,10 @@ import {
   Navigation,
   Search,
 } from "../../styledComponents/Homepage/home.styled";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+  const { id } = useSelector((state) => state.loginReducer);
   return (
     <Navigation>
       <Link href="/">
@@ -35,7 +37,7 @@ const NavBar = () => {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/profile/617c9c8d663f24849bc63d1a">Profile</Link>
+          <Link href={`/profile/${id}`}>Profile</Link>
         </li>
         <li>
           <Link href="/bonds">Bonds</Link>

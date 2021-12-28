@@ -12,5 +12,3 @@ export const LoginUser = async (value, dispatch, router) => {
     dispatch(loginFail(err));
   }
 };
-
-export const RegisterUser = "";

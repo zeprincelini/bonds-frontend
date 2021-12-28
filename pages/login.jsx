@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <>
       <Title title="login Page" />
-      <Card>
+      <Card height="400px">
         <Logo>
           <img
             alt="bonds logo"
@@ -53,7 +53,7 @@ const Login = () => {
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div style={{ marginBottom: "20px" }}>
-                {formik.errors.email ? (
+                {formik.errors.email && formik.touched.email ? (
                   <div
                     style={{
                       color: "red",
@@ -73,7 +73,7 @@ const Login = () => {
                 />
               </div>
               <div style={{ marginBottom: "20px" }}>
-                {formik.errors.password ? (
+                {formik.errors.password && formik.touched.password ? (
                   <div
                     style={{
                       color: "red",
