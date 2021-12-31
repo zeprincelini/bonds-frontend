@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   faCity,
   faEllipsisV,
@@ -25,8 +26,34 @@ import {
 
 import axios from "axios";
 import { GetUser, PostBase } from "../../http-requests/api";
+import { useSelector } from "react-redux";
+import { format } from "timeago.js";
 
 const Profile = ({ user }) => {
+  const { id, token } = useSelector((state) => state.loginReducer);
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState();
+  const [refresh, setRefresh] = useState(false);
+
+  const getPosts = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${PostBase}/user/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setLoading(false);
+      setPosts(res.data.data);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
   return (
     <>
       <Banner>
@@ -81,61 +108,89 @@ const Profile = ({ user }) => {
               <button>share</button>
             </div>
           </Post>
-          <Posts>
-            <div className="postTop">
-              <div className="postTopLeft">
-                <img
-                  src="https://picsum.photos/50/50"
-                  style={{ borderRadius: "50%" }}
-                />
-                <p>Jordan Pierce</p>
-                <p style={{ color: "gray", fontSize: "13px" }}>5 mins ago</p>
-              </div>
-              <div className="postTopRight">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </div>
-            </div>
-            <div className="postBody">
-              <img
-                src="assets/images/ppl.jpg"
-                width="100%"
-                height="auto"
-                style={{ objectFit: "contain" }}
-              />
-            </div>
-            <div className="postFooter">
-              <div className="postLikes">
-                <div
-                  style={{
-                    borderRadius: "50%",
-                    background: "skyblue",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "4px",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
+          {loading && (
+            <p
+              style={{ textAlign: "center", padding: "10px", fontSize: "13px" }}
+            >
+              Fetching Posts
+            </p>
+          )}
+          {posts && posts.length == 0 ? (
+            <p style={{ textAlign: "center", fontSize: "13px" }}>
+              No posts added
+            </p>
+          ) : (
+            posts.map((post) => (
+              <Posts key={post._id}>
+                <div className="postTop">
+                  <div className="postTopLeft">
+                    <img
+                      src={
+                        user.profilePicture
+                          ? user.profilePicture
+                          : "https://picsum.photos/50/50"
+                      }
+                      style={{ borderRadius: "50%" }}
+                    />
+                    <p>{user.username}</p>
+                    <p style={{ color: "gray", fontSize: "13px" }}>
+                      {format(post.createdAt)}
+                    </p>
+                  </div>
+                  <div className="postTopRight">
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                  </div>
                 </div>
-                <div
-                  style={{
-                    borderRadius: "50%",
-                    background: "red",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "4px",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faHeart} color="#ffffff" />
+                <div className="postdesc" style={{ padding: "10px 0px" }}>
+                  {post.description && post.description}
                 </div>
-                <p>23 people liked this</p>
-              </div>
-              <div className="postComments">
-                <p style={{ color: "gray" }}>9 comments</p>
-              </div>
-            </div>
-          </Posts>
+                <div className="postBody">
+                  <img
+                    src={
+                      post.img.includes("cloudinary")
+                        ? post.img
+                        : "assets/images/ppl.jpg"
+                    }
+                    width="100%"
+                    height="auto"
+                    style={{ objectFit: "contain" }}
+                  />
+                </div>
+                <div className="postFooter">
+                  <div className="postLikes">
+                    <div
+                      style={{
+                        borderRadius: "50%",
+                        background: "skyblue",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "4px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
+                    </div>
+                    <div
+                      style={{
+                        borderRadius: "50%",
+                        background: "red",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: "4px",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faHeart} color="#ffffff" />
+                    </div>
+                    <p>23 people liked this</p>
+                  </div>
+                  <div className="postComments">
+                    <p style={{ color: "gray" }}>9 comments</p>
+                  </div>
+                </div>
+              </Posts>
+            ))
+          )}
         </div>
         <div className="profileBodyRight">
           <div>

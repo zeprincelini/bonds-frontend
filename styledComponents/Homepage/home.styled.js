@@ -146,9 +146,11 @@ export const Post = styled.form`
     }
   }
   button {
-    background: green;
+    background: #f04f2f;
     color: #ffffff;
     border: none;
+    width: 90px;
+    height: 30px;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
@@ -172,6 +174,31 @@ export const Posts = styled.div`
       display: flex;
       align-items: center;
       gap: 20px;
+    }
+    .postTopRight {
+      cursor: pointer;
+      position: relative;
+      .popover {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100px;
+        background: #ffffff;
+        box-shadow: 0px 2px 10px 2px rgb(0 0 0 / 15%);
+        p {
+          padding: 10px;
+          margin: 0px;
+          font-size: 14px;
+          text-align: left;
+        }
+        p:hover {
+          background: #f04f2f;
+          color: #ffffff;
+        }
+        p:nth-child(1) {
+          border-bottom: 1px solid #c6c6c6;
+        }
+      }
     }
   }
   .postFooter {

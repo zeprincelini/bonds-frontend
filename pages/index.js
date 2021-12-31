@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useCallback } from "react";
 import {
   faEllipsisV,
   faFile,
@@ -51,7 +51,6 @@ export default function Home({ posts }) {
         },
       });
       toast.success(res.data.message);
-      console.log(res);
     } catch (err) {
       console.log(err);
     }
@@ -73,6 +72,11 @@ export default function Home({ posts }) {
       console.log(err);
     }
   };
+
+  const [displayPopover, setDisplayPopover] = useState(false);
+  const toggle = useCallback(() => {
+    setDisplayPopover(!displayPopover);
+  }, [displayPopover]);
   return (
     <>
       <Toaster />
@@ -131,10 +135,7 @@ export default function Home({ posts }) {
       {posts.length > 0 ? (
         posts.map((post) => {
           return (
-            <Posts
-              key={post._id}
-              onClick={() => router.replace(`post/${post._id}`)}
-            >
+            <Posts key={post._id}>
               <div className="postTop">
                 <div className="postTopLeft">
                   <img
@@ -150,16 +151,30 @@ export default function Home({ posts }) {
                     {format(post.createdAt)}
                   </p>
                 </div>
-                <div className="postTopRight">
+                <div className="postTopRight" onClick={toggle}>
                   <FontAwesomeIcon icon={faEllipsisV} />
+                  {displayPopover && (
+                    <div className="popover">
+                      <p>Edit Post</p>
+                      <p> Delete Post</p>
+                    </div>
+                  )}
                 </div>
+              </div>
+              <div className="postdesc" style={{ padding: "10px 0px" }}>
+                {post.description && post.description}
               </div>
               <div className="postBody">
                 <img
-                  src="assets/images/ppl.jpg"
+                  src={
+                    post.img.includes("cloudinary")
+                      ? post.img
+                      : "assets/images/ppl.jpg"
+                  }
                   width="100%"
                   height="auto"
-                  style={{ objectFit: "contain" }}
+                  style={{ objectFit: "contain", cursor: "pointer" }}
+                  onClick={() => router.replace(`post/${post._id}`)}
                 />
               </div>
               <div className="postFooter">
