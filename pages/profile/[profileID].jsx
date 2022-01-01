@@ -1,15 +1,8 @@
 import { useState, useEffect } from "react";
 import {
   faCity,
-  faEllipsisV,
-  faFile,
   faFlag,
-  faHeart,
-  faMapMarker,
   faPeopleArrows,
-  faSmile,
-  faTag,
-  faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileLayout from "../../layouts/profile/profile";
@@ -18,16 +11,13 @@ import {
   ProfileBody,
   ProfileUser,
 } from "../../styledComponents/Profile/profile.styled";
-import {
-  Posts,
-  PostIcon,
-  Post,
-} from "../../styledComponents/Homepage/home.styled";
 
 import axios from "axios";
 import { GetUser, PostBase } from "../../http-requests/api";
 import { useSelector } from "react-redux";
-import { format } from "timeago.js";
+import PostForm from "../../components/Post/PostForm";
+import PostComponent from "../../components/Post";
+import toast, { Toaster } from "react-hot-toast";
 
 const Profile = ({ user }) => {
   const { id, token } = useSelector((state) => state.loginReducer);
@@ -51,11 +41,16 @@ const Profile = ({ user }) => {
     }
   };
 
+  const forceRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [refresh]);
   return (
     <>
+      <Toaster />
       <Banner>
         <img
           src="/assets/images/banner.jpg"
@@ -70,44 +65,7 @@ const Profile = ({ user }) => {
       </ProfileUser>
       <ProfileBody>
         <div className="profileBodyLeft">
-          <Post>
-            <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-              <img
-                src="https://picsum.photos/50/50"
-                style={{ borderRadius: "50%" }}
-              />
-              <textarea placeholder="What's on your mind?"></textarea>
-            </div>
-            <hr
-              style={{ width: "90%", marginTop: "20px", marginBottom: "20px" }}
-            />
-            <div
-              style={{
-                display: "flex",
-                gap: "20px",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <PostIcon>
-                <FontAwesomeIcon icon={faFile} color="red" />
-                <p>Photo or Video</p>
-              </PostIcon>
-              <PostIcon>
-                <FontAwesomeIcon icon={faTag} color="green" />
-                <p>Tag</p>
-              </PostIcon>
-              <PostIcon>
-                <FontAwesomeIcon icon={faMapMarker} color="blue" />
-                <p>Location</p>
-              </PostIcon>
-              <PostIcon>
-                <FontAwesomeIcon icon={faSmile} color="orange" />
-                <p>Feelings</p>
-              </PostIcon>
-              <button>share</button>
-            </div>
-          </Post>
+          <PostForm toast={toast} reload={forceRefresh} />
           {loading && (
             <p
               style={{ textAlign: "center", padding: "10px", fontSize: "13px" }}
@@ -115,81 +73,21 @@ const Profile = ({ user }) => {
               Fetching Posts
             </p>
           )}
-          {posts && posts.length == 0 ? (
+          {posts && posts.length > 0 ? (
+            posts.map((post) => {
+              return (
+                <PostComponent
+                  toast={toast}
+                  key={post._id}
+                  post={post}
+                  reload={forceRefresh}
+                />
+              );
+            })
+          ) : (
             <p style={{ textAlign: "center", fontSize: "13px" }}>
               No posts added
             </p>
-          ) : (
-            posts.map((post) => (
-              <Posts key={post._id}>
-                <div className="postTop">
-                  <div className="postTopLeft">
-                    <img
-                      src={
-                        user.profilePicture
-                          ? user.profilePicture
-                          : "https://picsum.photos/50/50"
-                      }
-                      style={{ borderRadius: "50%" }}
-                    />
-                    <p>{user.username}</p>
-                    <p style={{ color: "gray", fontSize: "13px" }}>
-                      {format(post.createdAt)}
-                    </p>
-                  </div>
-                  <div className="postTopRight">
-                    <FontAwesomeIcon icon={faEllipsisV} />
-                  </div>
-                </div>
-                <div className="postdesc" style={{ padding: "10px 0px" }}>
-                  {post.description && post.description}
-                </div>
-                <div className="postBody">
-                  <img
-                    src={
-                      post.img.includes("cloudinary")
-                        ? post.img
-                        : "assets/images/ppl.jpg"
-                    }
-                    width="100%"
-                    height="auto"
-                    style={{ objectFit: "contain" }}
-                  />
-                </div>
-                <div className="postFooter">
-                  <div className="postLikes">
-                    <div
-                      style={{
-                        borderRadius: "50%",
-                        background: "skyblue",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: "4px",
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
-                    </div>
-                    <div
-                      style={{
-                        borderRadius: "50%",
-                        background: "red",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: "4px",
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faHeart} color="#ffffff" />
-                    </div>
-                    <p>23 people liked this</p>
-                  </div>
-                  <div className="postComments">
-                    <p style={{ color: "gray" }}>9 comments</p>
-                  </div>
-                </div>
-              </Posts>
-            ))
           )}
         </div>
         <div className="profileBodyRight">

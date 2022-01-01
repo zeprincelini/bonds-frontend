@@ -1,85 +1,14 @@
 import { PostBase } from "../../http-requests/api";
 import axios from "axios";
 import HomeLayout from "../../layouts/home/home";
-import { Posts } from "../../styledComponents/Homepage/home.styled";
-import { format } from "timeago.js";
-import { faHeart, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PostComponent from "../../components/Post";
+import toast, { Toaster } from "react-hot-toast";
 
 const Post = ({ post }) => {
-  console.log(post);
   return (
     <>
-      <Posts>
-        <div className="postTop">
-          <div className="postTopLeft">
-            <img
-              src={
-                post.user.profilePicture
-                  ? post.user.profilePicture
-                  : "https://picsum.photos/50/50"
-              }
-              style={{ borderRadius: "50%" }}
-            />
-            <p>{post.user.username}</p>
-            <p style={{ color: "gray", fontSize: "13px" }}>
-              {format(post.createdAt)}
-            </p>
-          </div>
-          {/* <div className="postTopRight">
-            <FontAwesomeIcon icon={faEllipsisV} />
-          </div> */}
-        </div>
-        <div className="postBody">
-          <img
-            src="../assets/images/ppl.jpg"
-            width="100%"
-            height="auto"
-            style={{ objectFit: "contain" }}
-          />
-        </div>
-        <div className="postFooter">
-          <div className="postLikes">
-            <div
-              style={{
-                borderRadius: "50%",
-                background: "skyblue",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "4px",
-                cursor: "pointer",
-              }}
-              onClick={() => likePost(post._id)}
-            >
-              <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
-            </div>
-            <div
-              style={{
-                borderRadius: "50%",
-                background: "red",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "4px",
-                cursor: "pointer",
-              }}
-            >
-              <FontAwesomeIcon icon={faHeart} color="#ffffff" />
-            </div>
-            {post.likes.length > 0 ? (
-              <p style={{ color: "gray", fontSize: "14px" }}>
-                {post.likes.length} person/people liked this
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="postComments">
-            <p style={{ color: "gray", fontSize: "14px" }}>9 comments</p>
-          </div>
-        </div>
-      </Posts>
+      <Toaster />
+      <PostComponent toast={toast} post={post} />
     </>
   );
 };

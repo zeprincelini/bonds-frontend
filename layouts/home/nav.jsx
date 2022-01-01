@@ -33,18 +33,18 @@ const NavBar = () => {
         />
       </Search>
       <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href={`/profile/${id}`}>Profile</Link>
-        </li>
-        <li>
-          <Link href="/bonds">Bonds</Link>
-        </li>
-        <li>
-          <Link href="/inbox">Inbox</Link>
-        </li>
+        <Link href="/">
+          <li>Home</li>
+        </Link>
+        <Link href={`/profile/${id}`}>
+          <li>Profile</li>
+        </Link>
+        <Link href="/bonds">
+          <li>Bonds</li>
+        </Link>
+        <Link href="/inbox">
+          <li>Inbox</li>
+        </Link>
       </ul>
     </Navigation>
   );
