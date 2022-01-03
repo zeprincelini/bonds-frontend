@@ -4,6 +4,8 @@ import {
   faFlag,
   faPeopleArrows,
   faSpinner,
+  faPlus,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileLayout from "../../layouts/profile/profile";
@@ -14,20 +16,22 @@ import {
 } from "../../styledComponents/Profile/profile.styled";
 
 import axios from "axios";
-import { GetUser, PostBase } from "../../http-requests/api";
+import { GetUser, PostBase, GetFriends } from "../../http-requests/api";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import PostForm from "../../components/Post/PostForm";
 import PostComponent from "../../components/Post";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/dist/client/link";
 
 const Profile = ({ user, profileId }) => {
   const { id, token } = useSelector((state) => state.loginReducer);
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState();
+  const [posts, setPosts] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [checkBond, setCheckBond] = useState(false);
   const [loadBond, setLoadBond] = useState(false);
+  const [friends, setFriends] = useState([]);
   const router = useRouter();
 
   const getPosts = async () => {
@@ -57,6 +61,28 @@ const Profile = ({ user, profileId }) => {
   useEffect(() => {
     getPosts();
   }, [refresh]);
+
+  const getCurrentUser = async () => {
+    try {
+      const res = await axios.get(`${GetUser}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data.data.following.includes(profileId)) {
+        setCheckBond(true);
+      } else {
+        setCheckBond(false);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getCurrentUser();
+  }, [loadBond, profileId]);
+
   const bond = async () => {
     try {
       const res = await axios.put(
@@ -69,20 +95,29 @@ const Profile = ({ user, profileId }) => {
         }
       );
       setLoadBond(!loadBond);
-      console.log(res);
+      toast.success(res.data.message);
     } catch (err) {
-      console.log(err);
+      toast.error("error creating bond");
+    }
+  };
+
+  const getFriends = async () => {
+    try {
+      const res = await axios.get(`${GetFriends}/${profileId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setFriends(res.data.data);
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
   useEffect(() => {
-    if (user.following.includes(profileId)) {
-      setCheckBond(true);
-      console.log("we here baby");
-    }
-    setCheckBond(false);
-    console.log("we ain't here baby");
-  }, [loadBond]);
+    getFriends();
+  }, [profileId]);
+
   return (
     <>
       <Toaster />
@@ -106,13 +141,25 @@ const Profile = ({ user, profileId }) => {
         />
       </Banner>
       <ProfileUser>
-        <span>{user.username}</span>
+        <span className="username">{user.username}</span>
         {/* <span>Nice to meet you</span> */}
-        <button onClick={() => bond()}>{checkBond ? "Bail" : "Bond"}</button>
+        {id !== profileId && (
+          <button onClick={() => bond()}>
+            {checkBond ? (
+              <>
+                Bail <FontAwesomeIcon icon={faTimes} color="#ffffff" />
+              </>
+            ) : (
+              <>
+                Bond <FontAwesomeIcon icon={faPlus} color="#ffffff" />
+              </>
+            )}{" "}
+          </button>
+        )}
       </ProfileUser>
       <ProfileBody>
         <div className="profileBodyLeft">
-          <PostForm toast={toast} reload={forceRefresh} />
+          {id === profileId && <PostForm toast={toast} reload={forceRefresh} />}
           {loading && (
             <div style={{ textAlign: "center", padding: "10px" }}>
               <FontAwesomeIcon
@@ -162,12 +209,31 @@ const Profile = ({ user, profileId }) => {
             <div className="userFriends">
               <h3>Bonds</h3>
               <div className="friends">
-                {user.followers.concat(user.following).map((bonds, id) => (
-                  <div className="img" key={id}>
-                    <img src="https://picsum.photos/80/80" />
-                    <span>Jane doe</span>
-                  </div>
-                ))}
+                {friends &&
+                  friends.map((bonds, id) => (
+                    <Link href={`/profile/${bonds._id}`}>
+                      <a>
+                        <div className="img" key={id}>
+                          <img
+                            src={
+                              bonds.profilePicture.length > 0
+                                ? bonds.profilePicture
+                                : "https://picsum.photos/80/80"
+                            }
+                          />
+                          <span
+                            style={{
+                              color: "gray",
+                              fontSize: "15px",
+                              textTransform: "capitalize",
+                            }}
+                          >
+                            {bonds.username}
+                          </span>
+                        </div>
+                      </a>
+                    </Link>
+                  ))}
               </div>
             </div>
           </div>

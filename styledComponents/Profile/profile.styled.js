@@ -36,22 +36,26 @@ export const ProfileUser = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  span:first-child {
-    font-size: 24px;
+  .username {
+    font-size: 19px;
     font-weight: bold;
+    text-transform: capitalize;
   }
-  span:last-child {
+  .greeting {
     color: gray;
     font-size: 14px;
   }
   button {
-    border: 1px solid #f04f2f;
+    border: none;
     border-radius: 5px;
     padding: 10px 23px;
-    color: #f04f2f;
-    background: #ffffff;
+    color: #ffffff;
+    background: #f04f2f;
     margin: 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
   button:hover {
     background: #f04f2f;

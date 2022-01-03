@@ -9,3 +9,5 @@ export const FriendsPosts = url + "/post/friends/posts";
 export const PostBase = url + "/post";
 
 export const GetUser = url + "/user";
+
+export const GetFriends = url + "/user/friends";
