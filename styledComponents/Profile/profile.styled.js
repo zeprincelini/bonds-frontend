@@ -44,6 +44,19 @@ export const ProfileUser = styled.div`
     color: gray;
     font-size: 14px;
   }
+  button {
+    border: 1px solid #f04f2f;
+    border-radius: 5px;
+    padding: 10px 23px;
+    color: #f04f2f;
+    background: #ffffff;
+    margin: 10px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #f04f2f;
+    color: #ffffff;
+  }
 `;
 
 export const ProfileBody = styled.div`

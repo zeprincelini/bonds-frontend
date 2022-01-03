@@ -50,7 +50,8 @@ const PostComponent = ({ toast, post, reload }) => {
                 ? post.user.profilePicture
                 : "https://picsum.photos/50/50"
             }
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: "50%", cursor: "pointer" }}
+            onClick={() => router.replace(`/profile/${post.user._id}`)}
           />
           <p>{post.user.username}</p>
           <p style={{ color: "gray", fontSize: "13px" }}>

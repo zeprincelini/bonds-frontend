@@ -3,6 +3,7 @@ import {
   faCity,
   faFlag,
   faPeopleArrows,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileLayout from "../../layouts/profile/profile";
@@ -15,15 +16,19 @@ import {
 import axios from "axios";
 import { GetUser, PostBase } from "../../http-requests/api";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import PostForm from "../../components/Post/PostForm";
 import PostComponent from "../../components/Post";
 import toast, { Toaster } from "react-hot-toast";
 
-const Profile = ({ user }) => {
+const Profile = ({ user, profileId }) => {
   const { id, token } = useSelector((state) => state.loginReducer);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState();
   const [refresh, setRefresh] = useState(false);
+  const [checkBond, setCheckBond] = useState(false);
+  const [loadBond, setLoadBond] = useState(false);
+  const router = useRouter();
 
   const getPosts = async () => {
     try {
@@ -34,7 +39,11 @@ const Profile = ({ user }) => {
         },
       });
       setLoading(false);
-      setPosts(res.data.data);
+      setPosts(
+        res.data.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        )
+      );
     } catch (err) {
       setLoading(false);
       console.log(err);
@@ -48,30 +57,70 @@ const Profile = ({ user }) => {
   useEffect(() => {
     getPosts();
   }, [refresh]);
+  const bond = async () => {
+    try {
+      const res = await axios.put(
+        `${GetUser}/${profileId}/follow`,
+        { userId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setLoadBond(!loadBond);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (user.following.includes(profileId)) {
+      setCheckBond(true);
+      console.log("we here baby");
+    }
+    setCheckBond(false);
+    console.log("we ain't here baby");
+  }, [loadBond]);
   return (
     <>
       <Toaster />
       <Banner>
         <img
-          src="/assets/images/banner.jpg"
+          src={
+            user.coverPhoto.length > 0
+              ? user.coverPhoto
+              : "/assets/images/banner.jpg"
+          }
           alt="banner"
           className="bannerImg"
         />
-        <img src="https://picsum.photos/50/50" className="bannerUserImg" />
+        <img
+          src={
+            user.profilePicture.length > 0
+              ? user.profilePicture
+              : "https://picsum.photos/50/50"
+          }
+          className="bannerUserImg"
+        />
       </Banner>
       <ProfileUser>
         <span>{user.username}</span>
-        <span>Nice to meet you</span>
+        {/* <span>Nice to meet you</span> */}
+        <button onClick={() => bond()}>{checkBond ? "Bail" : "Bond"}</button>
       </ProfileUser>
       <ProfileBody>
         <div className="profileBodyLeft">
           <PostForm toast={toast} reload={forceRefresh} />
           {loading && (
-            <p
-              style={{ textAlign: "center", padding: "10px", fontSize: "13px" }}
-            >
-              Fetching Posts
-            </p>
+            <div style={{ textAlign: "center", padding: "10px" }}>
+              <FontAwesomeIcon
+                icon={faSpinner}
+                color="#f04f2f"
+                className="fa-spin"
+              />
+            </div>
           )}
           {posts && posts.length > 0 ? (
             posts.map((post) => {
@@ -149,7 +198,7 @@ export const getServerSideProps = async (context) => {
   const data = res.data.data;
 
   return {
-    props: { user: data },
+    props: { user: data, profileId },
   };
 };
 

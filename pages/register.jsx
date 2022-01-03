@@ -12,6 +12,8 @@ import {
   Button,
   Footer,
 } from "../styledComponents/authPages/auth.styled";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AuthLayout from "../layouts/auth/auth";
 import { Sign_Up } from "../http-requests/api";
@@ -19,14 +21,16 @@ import { useState } from "react";
 
 const Register = () => {
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const registerUser = async (val) => {
     try {
-      const res = await axios.post(Sign_Up, val);
+      setLoading(true);
+      await axios.post(Sign_Up, val);
+      setLoading(false);
       router.push("/login");
-      console.log(res);
     } catch (err) {
-      console.log(err);
+      setLoading(false);
       setError(err);
     }
   };
@@ -173,7 +177,17 @@ const Register = () => {
                   value={formik.values.confirmPassword}
                 />
               </div>
-              <Button type="submit">Register</Button>
+              <Button type="submit">
+                {loading ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    className="fa-spin"
+                    color="#ffffff"
+                  />
+                ) : (
+                  "Register"
+                )}
+              </Button>
             </form>
           </div>
           <Footer>

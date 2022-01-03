@@ -12,6 +12,8 @@ import {
   Button,
   Footer,
 } from "../styledComponents/authPages/auth.styled";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AuthLayout from "../layouts/auth/auth";
 import { LoginUser } from "../redux/features/api";
@@ -92,7 +94,17 @@ const Login = () => {
                   value={formik.values.password}
                 />
               </div>
-              <Button type="submit">{loading ? "Loading" : "Login"}</Button>
+              <Button type="submit">
+                {loading ? (
+                  <FontAwesomeIcon
+                    icon={faSpinner}
+                    color="#ffffff"
+                    className="fa-spin"
+                  />
+                ) : (
+                  "Login"
+                )}
+              </Button>
             </form>
           </div>
           <Footer>

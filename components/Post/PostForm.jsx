@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { useRouter } from "next/dist/client/router";
 import axios from "axios";
 import { Post, PostIcon } from "../../styledComponents/Homepage/home.styled";
 import {
@@ -7,6 +6,7 @@ import {
   faMapMarker,
   faSmile,
   faTag,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
@@ -14,7 +14,6 @@ import { PostBase } from "../../http-requests/api";
 
 const PostForm = (props) => {
   const { token, id, user } = useSelector((state) => state.loginReducer);
-  const router = useRouter();
   const [load, setLoad] = useState(false);
   const handleFile = useRef();
   const desc = useRef();
@@ -41,11 +40,7 @@ const PostForm = (props) => {
       });
       props.toast.success(res.data.message);
       setLoad(false);
-      if (props.reload) {
-        props.reload();
-      } else {
-        router.reload(window.location.pathname);
-      }
+      props.reload();
     } catch (err) {
       setLoad(false);
       console.log(err);
@@ -97,7 +92,17 @@ const PostForm = (props) => {
           <FontAwesomeIcon icon={faSmile} color="orange" />
           <p>Feelings</p>
         </PostIcon>
-        <button type="submit">{load ? "loading" : "share"}</button>
+        <button type="submit">
+          {load ? (
+            <FontAwesomeIcon
+              icon={faSpinner}
+              className="fa-spin"
+              color="#ffffff"
+            />
+          ) : (
+            "share"
+          )}
+        </button>
       </div>
     </Post>
   );
