@@ -7,6 +7,8 @@ import {
   faSmile,
   faTag,
   faSpinner,
+  faTimes,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
@@ -17,7 +19,7 @@ const PostForm = (props) => {
   const [load, setLoad] = useState(false);
   const handleFile = useRef();
   const desc = useRef();
-  const [img, setImg] = useState();
+  const [img, setImg] = useState(null);
   const grabFile = () => {
     handleFile.current.click();
   };
@@ -68,14 +70,14 @@ const PostForm = (props) => {
           justifyContent: "center",
         }}
       >
-        <PostIcon onClick={grabFile}>
+        <PostIcon onClick={() => grabFile()}>
           <FontAwesomeIcon icon={faFile} color="red" />
           <p>Photo or Video</p>
           <input
             type="file"
             ref={handleFile}
             accept=".png,.jpg,.jpeg"
-            onChange={uploadFile}
+            onChange={(e) => uploadFile(e)}
             name="postImg"
             hidden
           />
@@ -104,6 +106,17 @@ const PostForm = (props) => {
           )}
         </button>
       </div>
+      {img && (
+        <div style={{ position: "relative", display: "flex", padding: "5px" }}>
+          <img src={URL.createObjectURL(img)} width="80px" height="auto" />
+          <FontAwesomeIcon
+            icon={faTimesCircle}
+            color="#000"
+            style={{ position: "absolute", cursor: "pointer", left: "65px" }}
+            onClick={() => setImg(null)}
+          />
+        </div>
+      )}
     </Post>
   );
 };
