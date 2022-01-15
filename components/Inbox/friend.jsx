@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { GetUser } from "../../http-requests/api";
 
-const Friend = ({ id }) => {
+const Friend = ({ chat, id }) => {
   const { token } = useSelector((state) => state.loginReducer);
   const [user, setUser] = React.useState({});
+  const friendId = chat.members.find((m) => m !== id);
   const getUser = async () => {
-    const res = await axios.get(`${GetUser}/${id}`, {
+    const res = await axios.get(`${GetUser}/${friendId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -16,7 +17,7 @@ const Friend = ({ id }) => {
   };
   React.useEffect(() => {
     getUser();
-  }, []);
+  }, [id]);
   return (
     <div className="friends">
       <img

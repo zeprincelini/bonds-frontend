@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
+  min-height: calc(100vh - 90px);
   .right-sidebar {
     flex: 3;
   }
@@ -24,9 +25,13 @@ export const WrapperLeft = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 6px;
+    padding: 12px 6px;
+    border-radius: 2px;
     margin-bottom: 10px;
     cursor: pointer;
+    &:hover {
+      background: #ececec;
+    }
     span {
       font-size: 14px;
     }
@@ -42,9 +47,10 @@ export const WrapperMid = styled.div`
     margin-top: 20px;
   }
   .empty h3 {
-    font-size: 50px;
+    font-size: 40px;
     color: gray;
     margin: 1px;
+    font-weight: normal;
     opacity: 0.8;
   }
   .chat-container {

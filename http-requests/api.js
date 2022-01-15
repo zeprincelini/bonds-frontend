@@ -13,3 +13,5 @@ export const GetUser = url + "/user";
 export const GetFriends = url + "/user/friends";
 
 export const GetConversation = url + "/conversation";
+
+export const GetChat = url + "/chat";
