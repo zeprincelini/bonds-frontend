@@ -42,9 +42,19 @@ const Inbox = () => {
       console.log(err.message);
     }
   };
-  // useEffect(() => {
-  //   getChat();
-  // }, [currentChat]);
+
+  const createChat = async (payload) => {
+    try {
+      const res = await axios.post(GetChat, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setMessage([...message, res.data.data]);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <Container>
@@ -55,7 +65,12 @@ const Inbox = () => {
         setCurrentChat={setCurrentChat}
         getChat={getChat}
       />
-      <Chat currentChat={currentChat} message={message} user={id} />
+      <Chat
+        currentChat={currentChat}
+        message={message}
+        user={id}
+        createChat={createChat}
+      />
       <div className="right-sidebar">r</div>
     </Container>
   );

@@ -4,8 +4,26 @@ import {
   Message,
   Flex,
 } from "../../styledComponents/Inbox/inbox.styled";
+import { format } from "timeago.js";
+import { useSelector } from "react-redux";
 
-const Chat = ({ currentChat, message, user }) => {
+const Chat = ({ currentChat, message, user, createChat }) => {
+  const { id } = useSelector((state) => state.loginReducer);
+  const [chatPayload, setChatPayload] = React.useState("");
+  const scrollRef = React.useRef();
+  const handleSubmit = () => {
+    const data = {
+      conversationId: currentChat._id,
+      sender: id,
+      message: chatPayload,
+    };
+    createChat(data);
+    setChatPayload("");
+  };
+
+  React.useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
   return (
     <WrapperMid>
       {currentChat === null ? (
@@ -20,19 +38,21 @@ const Chat = ({ currentChat, message, user }) => {
           <div className="chat-container">
             {message &&
               message.map((val) => (
-                <Message user={val.sender === user} key={val._id}>
-                  <div className="chat-userImg">
-                    <img
-                      src="https://picsum.photos/50/50"
-                      style={{ borderRadius: "50%" }}
-                    />
-                  </div>
-                  <div className="chat-body">
-                    <span>Jane foster</span>
-                    <div className="chat-text">{val.message}</div>
-                    <div className="chat-time">1 hour ago</div>
-                  </div>
-                </Message>
+                <div ref={scrollRef} key={val._id}>
+                  <Message user={val.sender === user}>
+                    <div className="chat-userImg">
+                      <img
+                        src="https://picsum.photos/50/50"
+                        style={{ borderRadius: "50%" }}
+                      />
+                    </div>
+                    <div className="chat-body">
+                      <span>Jane foster</span>
+                      <div className="chat-text">{val.message}</div>
+                      <div className="chat-time">{format(val.createdAt)}</div>
+                    </div>
+                  </Message>
+                </div>
               ))}
           </div>
           <Flex>
@@ -40,9 +60,17 @@ const Chat = ({ currentChat, message, user }) => {
               name="message"
               cols="50"
               rows="5"
-              placeholder="Type here"
+              placeholder="write something..."
+              onChange={(e) => setChatPayload(e.target.value)}
+              value={chatPayload}
             ></textarea>
-            <button>send</button>
+            <button
+              onClick={() => {
+                handleSubmit();
+              }}
+            >
+              send
+            </button>
           </Flex>
         </>
       )}

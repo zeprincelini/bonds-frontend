@@ -75,7 +75,7 @@ export const Message = styled.div`
       margin-top: 5px;
       background-color: ${(props) => (props.user ? "#f04f2f;" : "#ECECEC;")};
       color: ${(props) => (props.user ? "#ffffff;" : "#000000")}
-      padding: 5px 12px 5px 12px;
+      padding: 5px 12px;
       border-radius: 8px;
       font-size: 14px;
       max-width: 400px;
@@ -91,20 +91,18 @@ export const Message = styled.div`
 export const Flex = styled.div`
   display: flex;
   gap: 15px;
-  input {
-    width: 200px;
-    height: 40px;
-    border: 1px solid gray;
-    border-radius: 4px;
+  padding: 0px 20px;
+  textarea {
+    width: 80%;
   }
-  input:focus {
+  textarea:focus {
     outline: none;
   }
   button {
     background: #f04f2f;
     color: #ffffff;
     border: none;
-    width: 90px;
+    width: 15%;
     height: 30px;
     border-radius: 4px;
     padding: 5px 10px;
