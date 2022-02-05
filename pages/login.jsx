@@ -90,6 +90,7 @@ const Login = () => {
                   type="password"
                   name="password"
                   placeholder="enter password"
+                  autoComplete="on"
                   onChange={formik.handleChange}
                   value={formik.values.password}
                 />
