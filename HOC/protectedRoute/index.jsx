@@ -9,6 +9,7 @@ const ProtectedRoute = (Component, path) => {
       //const isLoggedIn = localStorage.getItem("user");
       if (user !== null) {
         router.replace(path);
+
         return null;
       } else {
         return <Component {...props} />;
