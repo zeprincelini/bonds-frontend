@@ -61,6 +61,7 @@ export const WrapperMid = styled.div`
 
 export const Message = styled.div`
   display: flex;
+  align-items: center;
   gap: 20px;
   margin-bottom: 15px;
   justify-content: ${(props) => (props.user ? "left;" : "right;")};

@@ -6,23 +6,12 @@ import { Container } from "../../styledComponents/Inbox/inbox.styled";
 import axios from "axios";
 import { GetChat, GetConversation } from "../../http-requests/api";
 import { useSelector } from "react-redux";
-import { io } from "socket.io-client";
 
 const Inbox = () => {
   const { id, token } = useSelector((state) => state.loginReducer);
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [message, setMessage] = useState([]);
-  const socket = useRef();
-
-  useEffect(() => {
-    socket.current = io("ws://localhost:8900");
-  }, []);
-
-  useEffect(() => {
-    socket.current.emit("addUser", id);
-    socket.current.on("allUsers", (users) => console.log(users));
-  }, [id]);
 
   const getConversations = async () => {
     try {
@@ -34,7 +23,7 @@ const Inbox = () => {
       });
       setConversations(res.data.data);
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
     }
   };
 
@@ -82,6 +71,7 @@ const Inbox = () => {
         message={message}
         user={id}
         createChat={createChat}
+        setMessage={setMessage}
       />
       <div className="right-sidebar">r</div>
     </Container>

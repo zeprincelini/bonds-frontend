@@ -2,9 +2,6 @@ import { WrapperLeft } from "../../styledComponents/Inbox/inbox.styled";
 import Friend from "./friend";
 
 const FriendsList = ({ conversation, id, setCurrentChat, getChat }) => {
-  // const friendsId = conversation.map((val) => {
-  //   return val.members.find((c) => c !== id);
-  // });
   return (
     <WrapperLeft>
       <div className="search">
