@@ -87,13 +87,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  // const res = await axios.get(`${FriendsPosts}/${JSON.parse(id)}`, {
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //   },
-  // });
-
-  // const data = res.data.data;
 
   return {
     props: { token, id },

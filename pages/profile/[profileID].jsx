@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   faCity,
   faFlag,
@@ -6,6 +6,7 @@ import {
   faSpinner,
   faPlus,
   faTimes,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileLayout from "../../layouts/profile/profile";
@@ -32,7 +33,8 @@ const Profile = ({ user, profileId }) => {
   const [checkBond, setCheckBond] = useState(false);
   const [loadBond, setLoadBond] = useState(false);
   const [friends, setFriends] = useState([]);
-  const router = useRouter();
+  const [tag, setTag] = useState("");
+  const bannerImg = useRef();
 
   const getPosts = async () => {
     try {
@@ -118,26 +120,70 @@ const Profile = ({ user, profileId }) => {
     getFriends();
   }, [profileId]);
 
+  const getFile = (value) => {
+    setTag(value);
+    bannerImg.current.click();
+  };
+
+  const updateProfile = async (e) => {
+    const file = e.target.files[0];
+    const payload = {
+      userId: profileId,
+      [tag]: file,
+    };
+    try {
+      const res = await axios.put(`${GetUser}/${profileId}`, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(res.data);
+      toast.success(res.data.message);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <>
       <Toaster />
       <Banner>
-        <img
-          src={
-            user.coverPhoto.length > 0
-              ? user.coverPhoto
-              : "/assets/images/banner.jpg"
-          }
-          alt="banner"
-          className="bannerImg"
-        />
-        <img
-          src={
-            user.profilePicture.length > 0
-              ? user.profilePicture
-              : "https://picsum.photos/50/50"
-          }
-          className="bannerUserImg"
+        <div style={{ width: "100%", height: "100%" }}>
+          <img
+            src={
+              user.coverPhoto.length > 0
+                ? user.coverPhoto
+                : "/assets/images/banner.jpg"
+            }
+            alt="banner"
+            className="bannerImg"
+          />
+          <div className="banner-icon" onClick={() => getFile("coverPhoto")}>
+            <FontAwesomeIcon icon={faEdit} color="#f04f2f" />
+          </div>
+        </div>
+        <div className="user-img">
+          <img
+            src={
+              user.profilePicture.length > 0
+                ? user.profilePicture
+                : "https://picsum.photos/50/50"
+            }
+            className="bannerUserImg"
+          />
+          <div
+            className="banner-userIcon"
+            onClick={() => getFile("profilePicture")}
+          >
+            <FontAwesomeIcon icon={faEdit} color="#f04f2f" />
+          </div>
+        </div>
+        <input
+          type="file"
+          name="banner"
+          hidden
+          ref={bannerImg}
+          onChange={(e) => updateProfile(e)}
         />
       </Banner>
       <ProfileUser>

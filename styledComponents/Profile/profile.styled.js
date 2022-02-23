@@ -16,10 +16,22 @@ export const Banner = styled.div`
     object-fit: cover;
     width: 100%;
     height: 100%;
+    position: relative;
   }
-  .bannerUserImg {
-    border: 3px solid #ffffff;
+  .banner-icon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+    background: #fff;
     border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-img {
     width: 180px;
     height: 180px;
     position: absolute;
@@ -27,6 +39,26 @@ export const Banner = styled.div`
     right: 0;
     margin: auto;
     top: 77%;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+  }
+
+  .bannerUserImg {
+    position: relative;
+  }
+
+  .banner-userIcon {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;
 

@@ -78,6 +78,23 @@ const Inbox = () => {
   );
 };
 
+export async function getServerSideProps(context) {
+  const token = context.req.cookies["token"];
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
+
 export default Inbox;
 
 Inbox.getLayout = function PageLayout(page) {

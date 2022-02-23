@@ -45,6 +45,7 @@ export const Button = styled.button`
   color: #fff;
   font-weight: bold;
   margin-top: 30px;
+  margin-bottom: ${(props) => props.mb};
   cursor: pointer;
 
   &:focus {
