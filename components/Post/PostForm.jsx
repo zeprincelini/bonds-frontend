@@ -7,7 +7,6 @@ import {
   faSmile,
   faTag,
   faSpinner,
-  faTimes,
   faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

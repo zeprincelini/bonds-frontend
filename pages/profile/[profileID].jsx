@@ -34,6 +34,7 @@ const Profile = ({ user, profileId }) => {
   const [loadBond, setLoadBond] = useState(false);
   const [friends, setFriends] = useState([]);
   const [tag, setTag] = useState("");
+  const router = useRouter();
   const bannerImg = useRef();
 
   const getPosts = async () => {
@@ -125,19 +126,24 @@ const Profile = ({ user, profileId }) => {
     bannerImg.current.click();
   };
 
+  const reloader = () => {
+    router.replace(router.asPath);
+  };
+
   const updateProfile = async (e) => {
     const file = e.target.files[0];
-    const payload = {
-      userId: profileId,
-      [tag]: file,
-    };
+    const formData = new FormData();
+    formData.append("userId", profileId);
+    formData.append("postImg", file);
+    formData.append("tag", tag);
     try {
-      const res = await axios.put(`${GetUser}/${profileId}`, payload, {
+      const res = await axios.put(`${GetUser}/${profileId}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(res.data);
+      bannerImg.current.value = "";
+      reloader();
       toast.success(res.data.message);
     } catch (err) {
       toast.error(err.message);
