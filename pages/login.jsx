@@ -107,6 +107,17 @@ const Login = () => {
                 )}
               </Button>
             </form>
+            <Link href="/forgotPassword">
+              <a
+                style={{
+                  color: "#f04f2f",
+                  lineHeight: "30px",
+                  fontSize: "14px",
+                }}
+              >
+                Forgot Password? Reset now
+              </a>
+            </Link>
           </div>
           <Footer>
             <Link href="/register">

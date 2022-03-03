@@ -72,7 +72,7 @@ const ForgotPassword = () => {
 export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
 
-  if (!token) {
+  if (token) {
     return {
       redirect: {
         destination: "/",
