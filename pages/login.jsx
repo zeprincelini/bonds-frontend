@@ -3,6 +3,7 @@ import * as yup from "yup";
 import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import Title from "../components/title";
 import {
@@ -45,10 +46,11 @@ const Login = () => {
       <Title title="login Page" />
       <Card height="400px">
         <Logo>
-          <img
+          <Image
             alt="bonds logo"
             src="/assets/logo/bondss-02.png"
             width="200px"
+            height="51.86px"
           />
         </Logo>
         <>

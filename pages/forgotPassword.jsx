@@ -45,7 +45,7 @@ const ForgotPassword = () => {
   return (
     <>
       <Toaster />
-      <Title title="login Page" />
+      <Title title="forgot password" />
       <Card height="250px">
         <Logo>
           <img

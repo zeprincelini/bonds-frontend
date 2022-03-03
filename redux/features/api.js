@@ -9,6 +9,6 @@ export const LoginUser = async (value, dispatch, router) => {
     dispatch(loginSuccess(res.data.data));
     router.push("/");
   } catch (err) {
-    dispatch(loginFail(err));
+    dispatch(loginFail(err.message));
   }
 };
