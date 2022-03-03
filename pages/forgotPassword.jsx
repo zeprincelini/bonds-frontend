@@ -3,6 +3,8 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 import Title from "../components/title";
 import AuthLayout from "../layouts/auth/auth";
@@ -12,6 +14,7 @@ import {
   Input,
   Button,
 } from "../styledComponents/authPages/auth.styled";
+import { Forgotpassword } from "../http-requests/api";
 
 const ForgotPassword = () => {
   const [loading, setLoading] = useState(false);
@@ -28,11 +31,20 @@ const ForgotPassword = () => {
     validationSchema: validation,
     onSubmit: (values) => handleSubmit(values),
   });
-  const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = async (values) => {
+    setLoading(true);
+    try {
+      await axios.post(Forgotpassword, values);
+      setLoading(false);
+      toast.success("Please check your email to reset password");
+    } catch (err) {
+      toast.error(err.message ? err.message : "failed to submit");
+      setLoading(false);
+    }
   };
   return (
     <>
+      <Toaster />
       <Title title="login Page" />
       <Card height="250px">
         <Logo>
@@ -43,7 +55,18 @@ const ForgotPassword = () => {
           />
         </Logo>
         <div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
+            {formik.errors.email && formik.touched.email ? (
+              <div
+                style={{
+                  color: "red",
+                  fontSize: "13px",
+                  marginBottom: "2px",
+                }}
+              >
+                {formik.errors.email}
+              </div>
+            ) : null}
             <Input
               type="email"
               name="email"

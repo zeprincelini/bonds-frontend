@@ -15,3 +15,6 @@ export const GetFriends = url + "/user/friends";
 export const GetConversation = url + "/conversation";
 
 export const GetChat = url + "/chat";
+
+export const Forgotpassword = url + "/auth/forgot/password";
+export const ResetPassword = url + "/auth/reset/password";
