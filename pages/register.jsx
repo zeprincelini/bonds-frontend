@@ -3,6 +3,7 @@ import * as yup from "yup";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import Title from "../components/title";
 import {
@@ -62,10 +63,11 @@ const Register = () => {
       <Title title="create an account" />
       <Card height="500px">
         <Logo>
-          <img
+          <Image
             alt="bonds logo"
             src="/assets/logo/bondss-02.png"
             width="200px"
+            height="51.86px"
           />
         </Logo>
         <>

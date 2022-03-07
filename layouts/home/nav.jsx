@@ -39,7 +39,7 @@ const NavBar = () => {
         <Link href={`/profile/${id}`}>
           <li>Profile</li>
         </Link>
-        <Link href="/bonds">
+        <Link href={`/bonds/${id}`}>
           <li>Bonds</li>
         </Link>
         <Link href="/inbox">

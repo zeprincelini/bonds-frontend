@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Sign_In, Sign_Up } from "../../http-requests/api";
+import { Sign_In } from "../../http-requests/api";
 import { loginStart, loginFail, loginSuccess } from "./login";
 
 export const LoginUser = async (value, dispatch, router) => {

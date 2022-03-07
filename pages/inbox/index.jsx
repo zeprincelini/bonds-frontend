@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Chat from "../../components/Inbox/chat";
 import FriendsList from "../../components/Inbox/friendsList";
 import HomeLayout from "../../layouts/home/home";

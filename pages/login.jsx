@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 
 import Title from "../components/title";
 import {
@@ -54,6 +55,8 @@ const Login = () => {
           />
         </Logo>
         <>
+          <Toaster />
+          {error !== null && toast.error(error)}
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div style={{ marginBottom: "20px" }}>
@@ -123,7 +126,7 @@ const Login = () => {
           </div>
           <Footer>
             <Link href="/register">
-              <a>Don't have an account? Register now</a>
+              <a>Don&apos;t have an account? Register now</a>
             </Link>
           </Footer>
         </>

@@ -23,7 +23,7 @@ import { useRouter } from "next/router";
 import PostForm from "../../components/Post/PostForm";
 import PostComponent from "../../components/Post";
 import toast, { Toaster } from "react-hot-toast";
-import Link from "next/dist/client/link";
+import Link from "next/link";
 
 const Profile = ({ user, profileId }) => {
   const { id, token } = useSelector((state) => state.loginReducer);
@@ -40,7 +40,7 @@ const Profile = ({ user, profileId }) => {
   const getPosts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${PostBase}/user/posts/${id}`, {
+      const res = await axios.get(`${PostBase}/user/posts/${profileId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -263,15 +263,16 @@ const Profile = ({ user, profileId }) => {
               <div className="friends">
                 {friends &&
                   friends.map((bonds, id) => (
-                    <Link href={`/profile/${bonds._id}`}>
+                    <Link href={`/profile/${bonds._id}`} key={id}>
                       <a>
-                        <div className="img" key={id}>
+                        <div className="img">
                           <img
                             src={
                               bonds.profilePicture.length > 0
                                 ? bonds.profilePicture
                                 : "https://picsum.photos/80/80"
                             }
+                            alt="profile"
                           />
                           <span
                             style={{

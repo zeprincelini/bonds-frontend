@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import Image from "next/image";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -48,10 +49,11 @@ const ForgotPassword = () => {
       <Title title="forgot password" />
       <Card height="250px">
         <Logo>
-          <img
+          <Image
             alt="bonds logo"
             src="/assets/logo/bondss-02.png"
             width="200px"
+            height="51.86px"
           />
         </Logo>
         <div>
