@@ -22,15 +22,15 @@ export const loginSlice = createSlice({
       const { id } = state.user;
       state.token = accessToken;
       state.id = id;
-      // localStorage.setItem("user", JSON.stringify(state.user));
-      // localStorage.setItem("token", JSON.stringify(state.token));
     },
     loginFail: (state, action) => {
       state.error = action.payload;
       state.loading = false;
     },
+    logOut: () => initialState,
   },
 });
 
-export const { loginStart, loginSuccess, loginFail } = loginSlice.actions;
+export const { loginStart, loginSuccess, loginFail, logOut } =
+  loginSlice.actions;
 export default loginSlice.reducer;

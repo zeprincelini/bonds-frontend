@@ -75,6 +75,9 @@ export const WrapperLeft = styled.div`
   overflow-y: scroll;
   flex: 2.5;
   padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -122,6 +125,22 @@ export const WrapperLeftFriends = styled.div`
   }
   li {
     list-style: none;
+  }
+`;
+
+export const SignOut = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+  width: 90%;
+  margin-bottom: 10px;
+  list-style: none;
+  transition: 0.5s ease;
+  cursor: pointer;
+  color: #4e4b4b;
+  &:hover {
+    color: #f04f2f;
   }
 `;
 

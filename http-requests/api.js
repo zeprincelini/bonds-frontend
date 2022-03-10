@@ -16,5 +16,8 @@ export const GetConversation = url + "/conversation";
 
 export const GetChat = url + "/chat";
 
+export const PostComment = url + "/comment";
+export const GetComments = url + "/comment";
+
 export const Forgotpassword = url + "/auth/forgot/password";
 export const Resetpassword = url + "/auth/reset/password";

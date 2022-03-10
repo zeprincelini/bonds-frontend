@@ -1,4 +1,3 @@
-import Link from "next/link";
 import axios from "axios";
 
 import HomeLayout from "../../layouts/home/home";

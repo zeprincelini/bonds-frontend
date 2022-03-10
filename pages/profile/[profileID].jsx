@@ -37,31 +37,30 @@ const Profile = ({ user, profileId }) => {
   const router = useRouter();
   const bannerImg = useRef();
 
-  const getPosts = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${PostBase}/user/posts/${profileId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setLoading(false);
-      setPosts(
-        res.data.data.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        )
-      );
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-  };
-
   const forceRefresh = () => {
     setRefresh(!refresh);
   };
 
   useEffect(() => {
+    const getPosts = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${PostBase}/user/posts/${profileId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setLoading(false);
+        setPosts(
+          res.data.data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          )
+        );
+      } catch (err) {
+        setLoading(false);
+        console.log(err);
+      }
+    };
     getPosts();
   }, [refresh]);
 

@@ -56,7 +56,7 @@ const PostForm = (props) => {
           style={{ borderRadius: "50%" }}
         />
         <textarea
-          placeholder={`What's on your mind ${user.username.split(" ")[0]}?`}
+          placeholder={`What's on your mind ${user?.username.split(" ")[0]}?`}
           ref={desc}
         ></textarea>
       </div>
