@@ -24,6 +24,7 @@ import PostForm from "../../components/Post/PostForm";
 import PostComponent from "../../components/Post";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import Image from "next/image";
 
 const Profile = ({ user, profileId }) => {
   const { id, token } = useSelector((state) => state.loginReducer);
@@ -51,6 +52,7 @@ const Profile = ({ user, profileId }) => {
           },
         });
         setLoading(false);
+        console.log(res.data.data);
         setPosts(
           res.data.data.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -62,28 +64,27 @@ const Profile = ({ user, profileId }) => {
       }
     };
     getPosts();
-  }, [refresh]);
-
-  const getCurrentUser = async () => {
-    try {
-      const res = await axios.get(`${GetUser}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (res.data.data.following.includes(profileId)) {
-        setCheckBond(true);
-      } else {
-        setCheckBond(false);
-      }
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
+  }, [refresh, profileId, token]);
 
   useEffect(() => {
+    const getCurrentUser = async () => {
+      try {
+        const res = await axios.get(`${GetUser}/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.data.data.following.includes(profileId)) {
+          setCheckBond(true);
+        } else {
+          setCheckBond(false);
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    };
     getCurrentUser();
-  }, [loadBond, profileId]);
+  }, [id, loadBond, profileId, token]);
 
   const bond = async () => {
     try {
@@ -103,22 +104,21 @@ const Profile = ({ user, profileId }) => {
     }
   };
 
-  const getFriends = async () => {
-    try {
-      const res = await axios.get(`${GetFriends}/${profileId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setFriends(res.data.data);
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
   useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const res = await axios.get(`${GetFriends}/${profileId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setFriends(res.data.data);
+      } catch (err) {
+        toast.error(err.message);
+      }
+    };
     getFriends();
-  }, [profileId]);
+  }, [profileId, token]);
 
   const getFile = (value) => {
     setTag(value);
@@ -154,12 +154,16 @@ const Profile = ({ user, profileId }) => {
       <Toaster />
       <Banner>
         <div style={{ width: "100%", height: "100%" }}>
-          <img
+          <Image
             src={
               user.coverPhoto.length > 0
                 ? user.coverPhoto
                 : "/assets/images/banner.jpg"
             }
+            width="100%"
+            height="100%"
+            layout="fill"
+            objectFit="cover"
             alt="banner"
             className="bannerImg"
           />
@@ -168,12 +172,17 @@ const Profile = ({ user, profileId }) => {
           </div>
         </div>
         <div className="user-img">
-          <img
+          <Image
             src={
               user.profilePicture.length > 0
                 ? user.profilePicture
                 : "https://picsum.photos/50/50"
             }
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="cover"
+            alt="user"
             className="bannerUserImg"
           />
           <div
@@ -265,13 +274,15 @@ const Profile = ({ user, profileId }) => {
                     <Link href={`/profile/${bonds._id}`} key={id}>
                       <a>
                         <div className="img">
-                          <img
+                          <Image
                             src={
                               bonds.profilePicture.length > 0
                                 ? bonds.profilePicture
                                 : "https://picsum.photos/80/80"
                             }
                             alt="profile"
+                            width="80px"
+                            height="80px"
                           />
                           <span
                             style={{

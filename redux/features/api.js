@@ -14,8 +14,9 @@ export const LoginUser = async (value, dispatch, router) => {
   }
 };
 
-export const LogOut = (dispatch) => {
+export const LogOut = (dispatch, router) => {
   Cookies.remove("token");
   Cookies.remove("id");
   dispatch(logOut());
+  router.push("/login");
 };

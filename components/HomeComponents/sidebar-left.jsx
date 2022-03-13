@@ -1,9 +1,15 @@
 import Link from "next/dist/client/link";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { LogOut } from "../../redux/features/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faHome, faCog } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSignOutAlt,
+  faHome,
+  faCog,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   WrapperLeft,
   SignOut,
@@ -11,6 +17,7 @@ import {
 } from "../../styledComponents/Homepage/home.styled";
 
 const SideBarLeft = () => {
+  const { id } = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -20,10 +27,10 @@ const SideBarLeft = () => {
   return (
     <WrapperLeft>
       <div>
-        <Link href="/" passHref>
+        <Link href={`/profile/${id}`} passHref>
           <WrapperLeftLinks pathname={router.pathname}>
-            <FontAwesomeIcon icon={faHome} />
-            <li>Home</li>
+            <FontAwesomeIcon icon={faUser} />
+            <li>Profile</li>
           </WrapperLeftLinks>
         </Link>
         <Link href="/settings" passHref>

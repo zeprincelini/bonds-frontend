@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { faBirthdayCake } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { WrapperRight } from "../../styledComponents/Homepage/home.styled";
@@ -12,14 +14,23 @@ const SideBarRight = () => {
         </p>
       </div>
       <div className="ad">
-        <img src="assets/images/ad.jpg" alt="" width="100%" height="auto" />
+        <Image
+          src="/assets/images/ad.jpg"
+          alt=""
+          width="100%"
+          height="100%"
+          objectFit="contain"
+        />
       </div>
       <div className="online">
         <h3>Online Bonds</h3>
         <div className="online-cover">
           <div className="friend">
             <div className="icon">
-              <img
+              <Image
+                width="50px"
+                height="50px"
+                alt=""
                 src="https://picsum.photos/50/50"
                 style={{ borderRadius: "50%" }}
               />

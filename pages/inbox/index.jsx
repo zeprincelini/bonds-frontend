@@ -13,23 +13,22 @@ const Inbox = () => {
   const [currentChat, setCurrentChat] = useState(null);
   const [message, setMessage] = useState([]);
 
-  const getConversations = async () => {
-    try {
-      const res = await axios.get(GetConversation, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: { id },
-      });
-      setConversations(res.data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
+    const getConversations = async () => {
+      try {
+        const res = await axios.get(GetConversation, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: { id },
+        });
+        setConversations(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getConversations();
-  }, [id]);
+  }, [id, token]);
 
   const getChat = async (conversationId) => {
     try {

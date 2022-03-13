@@ -7,6 +7,7 @@ import {
 import { format } from "timeago.js";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import Image from "next/image";
 
 const Chat = ({ currentChat, message, user, createChat, setMessage }) => {
   const { id } = useSelector((state) => state.loginReducer);
@@ -30,7 +31,7 @@ const Chat = ({ currentChat, message, user, createChat, setMessage }) => {
     newMessage &&
       currentChat?.members.includes(newMessage.sender) &&
       setMessage((prev) => [...prev, newMessage]);
-  }, [newMessage, currentChat]);
+  }, [newMessage, currentChat, setMessage]);
 
   useEffect(() => {
     socket.current.emit("addUser", id);
@@ -73,9 +74,12 @@ const Chat = ({ currentChat, message, user, createChat, setMessage }) => {
                 <div ref={scrollRef} key={val._id}>
                   <Message user={val.sender === user}>
                     <div className="chat-userImg">
-                      <img
+                      <Image
+                        alt="user"
                         src="https://picsum.photos/50/50"
                         style={{ borderRadius: "50%" }}
+                        width="50px"
+                        height="50px"
                       />
                     </div>
                     <div className="chat-body">

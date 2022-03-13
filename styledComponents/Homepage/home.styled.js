@@ -157,6 +157,9 @@ export const Post = styled.form`
   width: 100%;
   height: 200px;
   padding: 10px;
+  .myImage {
+    border-radius: 50%;
+  }
   textarea {
     border: none;
     width: 90%;
@@ -193,6 +196,10 @@ export const Posts = styled.div`
       display: flex;
       align-items: center;
       gap: 20px;
+      .postImg {
+        border-radius: 50%;
+        cursor: pointer;
+      }
     }
     .postTopRight {
       cursor: pointer;
@@ -291,4 +298,13 @@ export const WrapperRight = styled.div`
       }
     }
   }
+`;
+
+export const Dialog = styled.div`
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;

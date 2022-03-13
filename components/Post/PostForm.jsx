@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
+import Image from "next/image";
 import { Post, PostIcon } from "../../styledComponents/Homepage/home.styled";
 import {
   faFile,
@@ -44,16 +45,19 @@ const PostForm = (props) => {
       props.reload();
     } catch (err) {
       setLoad(false);
-      console.log(err);
+      props.toast.error(err.message);
     }
   };
 
   return (
     <Post onSubmit={createPost} encType="multipart/form-data">
       <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
-        <img
+        <Image
           src="https://picsum.photos/50/50"
-          style={{ borderRadius: "50%" }}
+          width={50}
+          height={50}
+          alt=""
+          className="myImage"
         />
         <textarea
           placeholder={`What's on your mind ${user?.username.split(" ")[0]}?`}
@@ -81,7 +85,7 @@ const PostForm = (props) => {
             hidden
           />
         </PostIcon>
-        <PostIcon>
+        {/* <PostIcon>
           <FontAwesomeIcon icon={faTag} color="green" />
           <p>Tag</p>
         </PostIcon>
@@ -92,7 +96,7 @@ const PostForm = (props) => {
         <PostIcon>
           <FontAwesomeIcon icon={faSmile} color="orange" />
           <p>Feelings</p>
-        </PostIcon>
+        </PostIcon> */}
         <button type="submit">
           {load ? (
             <FontAwesomeIcon
@@ -107,7 +111,12 @@ const PostForm = (props) => {
       </div>
       {img && (
         <div style={{ position: "relative", display: "flex", padding: "5px" }}>
-          <img src={URL.createObjectURL(img)} width="80px" height="auto" />
+          <Image
+            src={URL.createObjectURL(img)}
+            width="80px"
+            height="80px"
+            alt="select image"
+          />
           <FontAwesomeIcon
             icon={faTimesCircle}
             color="#000"

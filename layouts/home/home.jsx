@@ -12,7 +12,6 @@ import SideBarRight from "../../components/HomeComponents/sidebar-right";
 const HomeLayout = ({ children }) => {
   const paths = ["/inbox", "/bonds/[bondId]"];
   const router = useRouter();
-  console.log(router.pathname);
   return (
     <>
       {paths.includes(router.pathname) ? (

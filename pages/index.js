@@ -14,33 +14,31 @@ export default function Home({ token, id }) {
   const [posts, setPosts] = useState();
   const [refresh, setRefresh] = useState(false);
 
-  const getAllPosts = async () => {
-    try {
-      setLoading(true);
-      const res = await axios.get(`${FriendsPosts}/${JSON.parse(id)}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setLoading(false);
-      setPosts(
-        res.data.data.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        )
-      );
-    } catch (err) {
-      setLoading(false);
-      console.log(err);
-    }
-  };
-
   const forceRefresh = () => {
     setRefresh(!refresh);
   };
 
   useEffect(() => {
+    const getAllPosts = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`${FriendsPosts}/${JSON.parse(id)}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setLoading(false);
+        setPosts(
+          res.data.data.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          )
+        );
+      } catch (err) {
+        setLoading(false);
+      }
+    };
     getAllPosts();
-  }, [refresh]);
+  }, [refresh, id, token]);
   return (
     <>
       <Toaster />
