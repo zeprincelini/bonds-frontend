@@ -56,7 +56,7 @@ const Login = () => {
         </Logo>
         <>
           <Toaster />
-          {error !== null && toast.error(error)}
+          {/* {error !== null && toast.error(error)} */}
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div style={{ marginBottom: "20px" }}>

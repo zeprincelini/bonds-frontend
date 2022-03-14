@@ -7,13 +7,16 @@ export const Container = styled.div`
 `;
 
 export const ContainerImage = styled.div`
-  flex: 1;
+  flex: 1.5;
   background-image: url("/assets/images/pic.jpg");
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: auto;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  @media (max-width: 800px) {
+    display: none;
+  }
 `;
 
 export const ContainerForm = styled.div`
