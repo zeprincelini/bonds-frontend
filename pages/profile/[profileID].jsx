@@ -283,6 +283,7 @@ const Profile = ({ user, profileId }) => {
                             alt="profile"
                             width="80px"
                             height="80px"
+                            className="rounded-img"
                           />
                           <span
                             style={{

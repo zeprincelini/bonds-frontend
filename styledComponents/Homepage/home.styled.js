@@ -355,14 +355,28 @@ export const Dialog = styled.div`
     input:focus {
       outline: none;
     }
-    button {
-      border: none;
-      width: 70px;
-      height: 30px;
-      background: #f0522d;
-      color: #fff;
-      border-radius: 8px;
-      cursor: pointer;
+  }
+  .comment-list {
+    padding: 12px;
+    margin-top: 10px;
+    height: 300px;
+    overflow-y: auto;
+    .comment-body {
+      padding: 8px;
+      border-bottom: 1px solid #a5a5a5;
+    }
+    .comment-body-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .comment-user {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+    }
+    .comment-main {
+      margin-top: 10px;
     }
   }
 `;

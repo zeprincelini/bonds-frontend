@@ -4,7 +4,11 @@ import { PostBase, PostComment } from "../../http-requests/api";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Dialog } from "../../styledComponents/Homepage/home.styled";
-import { faTimes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faThumbsUp,
+  faPaperPlane,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { format } from "timeago.js";
@@ -31,7 +35,7 @@ const PostModal = ({ open, setOpen, postID }) => {
       }
     };
     getPost();
-  }, [postID, refresh]);
+  }, [postID, refresh, token]);
 
   const likePost = async (postId) => {
     try {
@@ -145,7 +149,34 @@ const PostModal = ({ open, setOpen, postID }) => {
         </div>
         <div className="comment-list">
           {post.comment &&
-            post.comment.map((msg) => <div key={msg._id}>{msg.message}</div>)}
+            post.comment
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .map((msg) => (
+                <div key={msg._id} className="comment-body">
+                  <div className="comment-body-top">
+                    <div className="comment-user">
+                      <div>
+                        <Image
+                          src={
+                            msg.user?.profilePicture
+                              ? msg.user?.profilePicture
+                              : "https://picsum.photos/50/50"
+                          }
+                          width="50px"
+                          height="50px"
+                          alt="user profile"
+                          className="rounded-img"
+                        />
+                      </div>
+                      <p>{msg.user?.username}</p>
+                    </div>
+                    <p style={{ color: "gray", fontSize: "13px" }}>
+                      {format(msg.createdAt)}
+                    </p>
+                  </div>
+                  <div className="comment-main">{msg.message}</div>
+                </div>
+              ))}
         </div>
         <div className="comment-input">
           <input
@@ -154,7 +185,12 @@ const PostModal = ({ open, setOpen, postID }) => {
             name="comment"
             onChange={(e) => setCommentVal(e.target.value)}
           />
-          <button onClick={() => createComment(commentVal)}>post</button>
+          <FontAwesomeIcon
+            onClick={() => createComment(commentVal)}
+            icon={faPaperPlane}
+            color="#f0522d"
+            style={{ cursor: "pointer", width: "20px", height: "20px" }}
+          />
         </div>
       </Dialog>
     </Modal>
