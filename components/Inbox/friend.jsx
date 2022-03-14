@@ -31,7 +31,7 @@ const Friend = ({ chat, id }) => {
         alt=""
         width="50px"
         height="50px"
-        style={{ borderRadius: "50%" }}
+        className="rounded-img"
       />
       <span>{user.username}</span>
     </div>

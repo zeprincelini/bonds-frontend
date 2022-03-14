@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Posts } from "../../styledComponents/Homepage/home.styled";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -46,24 +46,12 @@ const PostComponent = ({ toast, post, reload }) => {
     setDisplayPopover(!displayPopover);
   }, [displayPopover]);
 
-  const createComment = async (val) => {
-    try {
-      await axios.post(PostComment, val, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(res);
-      toast.success("comment added successfully");
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
   return (
     <>
-      {open ? <PostModal open={open} setOpen={setOpen} id={post._id} /> : null}
-      <Posts onClick={() => modalOpen()}>
+      {open ? (
+        <PostModal open={open} setOpen={setOpen} postID={post._id} />
+      ) : null}
+      <Posts>
         <div className="postTop">
           <div className="postTopLeft">
             <Image
@@ -111,8 +99,7 @@ const PostComponent = ({ toast, post, reload }) => {
             alt="post image"
             objectFit="cover"
             layout="responsive"
-            style={{ cursor: "pointer" }}
-            onClick={() => router.replace(`/post/${post._id}`)}
+            onClick={() => modalOpen()}
           />
         </div>
         <div className="postFooter">
@@ -120,7 +107,7 @@ const PostComponent = ({ toast, post, reload }) => {
             <div
               style={{
                 borderRadius: "50%",
-                background: "skyblue",
+                background: "#0078B9",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -131,7 +118,7 @@ const PostComponent = ({ toast, post, reload }) => {
             >
               <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
             </div>
-            <div
+            {/* <div
               style={{
                 borderRadius: "50%",
                 background: "red",
@@ -143,7 +130,7 @@ const PostComponent = ({ toast, post, reload }) => {
               }}
             >
               <FontAwesomeIcon icon={faHeart} color="#ffffff" />
-            </div>
+            </div> */}
             {post.likes.length > 0 ? (
               <p style={{ color: "gray", fontSize: "14px" }}>
                 {post.likes.length} person/people liked this

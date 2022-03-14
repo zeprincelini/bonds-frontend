@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import { PostBase } from "../../http-requests/api";
+import { PostBase, PostComment } from "../../http-requests/api";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Dialog } from "../../styledComponents/Homepage/home.styled";
+import { faTimes, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { format } from "timeago.js";
+import toast, { Toaster } from "react-hot-toast";
 
-const PostModal = ({ open, setOpen, id }) => {
+const PostModal = ({ open, setOpen, postID }) => {
   Modal.setAppElement("#__next");
-  const { token } = useSelector((state) => state.loginReducer);
+  const { token, id } = useSelector((state) => state.loginReducer);
   const [post, setPost] = useState({});
+  const [refresh, setRefresh] = useState(false);
+  const [commentVal, setCommentVal] = useState("");
+
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await axios.get(`${PostBase}/${id}`, {
+        const res = await axios.get(`${PostBase}/${postID}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -23,12 +31,131 @@ const PostModal = ({ open, setOpen, id }) => {
       }
     };
     getPost();
-  }, [id]);
+  }, [postID, refresh]);
+
+  const likePost = async (postId) => {
+    try {
+      const res = await axios.put(
+        `${PostBase}/${postId}/like`,
+        { userId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.message);
+      setRefresh(!refresh);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createComment = async (val) => {
+    try {
+      const res = await axios.post(
+        PostComment,
+        { userId: id, postId: post._id, comment: val },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success(res.data.message);
+      setRefresh(!refresh);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
   return (
     <Modal isOpen={open}>
+      <Toaster />
       <Dialog>
-        <div>{post && post.description}</div>
-        <button onClick={() => setOpen(false)}>close me</button>
+        <div className="post-top">
+          <div className="profile">
+            <Image
+              src={
+                post.user?.profilePicture
+                  ? post.user?.profilePicture
+                  : "https://picsum.photos/50/50"
+              }
+              width="50px"
+              height="50px"
+              alt="user profile"
+              className="rounded-img"
+            />
+            <p>{post.user?.username}</p>
+            <p style={{ color: "gray", fontSize: "13px" }}>
+              {format(post.createdAt)}
+            </p>
+          </div>
+          <button className="close" onClick={() => setOpen(false)}>
+            <FontAwesomeIcon icon={faTimes} color="#fff" />
+          </button>
+        </div>
+        <div className="post-body">
+          <p>{post && post.description}</p>
+          <div>
+            <Image
+              src={
+                post.img?.includes("cloudinary")
+                  ? post.img
+                  : "/assets/images/ppl.jpg"
+              }
+              width="100%"
+              height="50px"
+              alt="post image"
+              objectFit="cover"
+              layout="responsive"
+            />
+          </div>
+        </div>
+        <div className="postFooter">
+          <div className="postLikes">
+            <div
+              style={{
+                borderRadius: "50%",
+                background: "#0078B9",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "4px",
+                cursor: "pointer",
+              }}
+              onClick={() => likePost(post._id)}
+            >
+              <FontAwesomeIcon icon={faThumbsUp} color="#ffffff" />
+            </div>
+            {post.likes?.length > 0 ? (
+              <p style={{ color: "gray", fontSize: "14px" }}>
+                {post.likes?.length} person/people liked this
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
+          {post.comment?.length > 0 && (
+            <div className="postComments">
+              <p style={{ color: "gray", fontSize: "14px" }}>
+                {post.comment?.length} comment(s)
+              </p>
+            </div>
+          )}
+        </div>
+        <div className="comment-list">
+          {post.comment &&
+            post.comment.map((msg) => <div key={msg._id}>{msg.message}</div>)}
+        </div>
+        <div className="comment-input">
+          <input
+            type="text"
+            placeholder="write comment..."
+            name="comment"
+            onChange={(e) => setCommentVal(e.target.value)}
+          />
+          <button onClick={() => createComment(commentVal)}>post</button>
+        </div>
       </Dialog>
     </Modal>
   );

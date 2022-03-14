@@ -77,9 +77,9 @@ const Chat = ({ currentChat, message, user, createChat, setMessage }) => {
                       <Image
                         alt="user"
                         src="https://picsum.photos/50/50"
-                        style={{ borderRadius: "50%" }}
                         width="50px"
                         height="50px"
+                        className="rounded-img"
                       />
                     </div>
                     <div className="chat-body">

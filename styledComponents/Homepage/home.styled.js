@@ -307,4 +307,62 @@ export const Dialog = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .post-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-transform: capitalize;
+    }
+    .close {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: #f0522d;
+      cursor: pointer;
+    }
+  }
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .postFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .postLikes {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+  .comment-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    input {
+      width: 400px;
+      height: 30px;
+      border: none;
+      border-bottom: 1px solid gray;
+    }
+    input:focus {
+      outline: none;
+    }
+    button {
+      border: none;
+      width: 70px;
+      height: 30px;
+      background: #f0522d;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
 `;
