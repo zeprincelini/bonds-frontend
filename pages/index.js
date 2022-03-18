@@ -50,7 +50,7 @@ export default function Home({ token, id }) {
           content="social network, bonds, relationship, friendship, love, fun, entertainment"
         />
       </Head>
-      <div>
+      <div style={{ marginBottom: "40px" }}>
         <PostForm toast={toast} reload={forceRefresh} />
       </div>
       {loading && (

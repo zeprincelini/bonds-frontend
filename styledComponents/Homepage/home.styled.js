@@ -73,11 +73,12 @@ export const WrapperLeft = styled.div`
   position: sticky;
   top: 50px;
   overflow-y: scroll;
-  flex: 2.5;
+  flex: 2;
   padding: 0px 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 8px 0 6px -6px rgb(0 0 0 / 0.2);
   &::-webkit-scrollbar {
     width: 8px;
   }
@@ -92,7 +93,7 @@ export const WrapperLeftLinks = styled.a`
   align-items: center;
   gap: 15px;
   padding: 10px;
-  width: 90%;
+  width: 100%;
   margin-bottom: 10px;
   background: ${(props) =>
     props.href === props.pathname ? "#f04f2f;" : "none;"}
@@ -180,7 +181,7 @@ export const Post = styled.form`
 `;
 
 export const Posts = styled.div`
-  margin-top: 40px;
+  margin-bottom: 40px;
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   width: 100%;
@@ -250,8 +251,9 @@ export const PostIcon = styled.div`
 `;
 
 export const WrapperRight = styled.div`
-  flex: 3;
-  padding: 5px;
+  flex: 2;
+  padding: 5px 10px;
+  box-shadow: -8px 0 6px -6px rgb(0 0 0 / 0.2);
   .b-day {
     display: flex;
     align-items: center;

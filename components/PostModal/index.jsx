@@ -147,9 +147,9 @@ const PostModal = ({ open, setOpen, postID }) => {
             </div>
           )}
         </div>
-        <div className="comment-list">
-          {post.comment &&
-            post.comment
+        {post.comment.length > 0 && (
+          <div className="comment-list">
+            {post.comment
               .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
               .map((msg) => (
                 <div key={msg._id} className="comment-body">
@@ -177,7 +177,8 @@ const PostModal = ({ open, setOpen, postID }) => {
                   <div className="comment-main">{msg.message}</div>
                 </div>
               ))}
-        </div>
+          </div>
+        )}
         <div className="comment-input">
           <input
             type="text"

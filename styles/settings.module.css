@@ -1,0 +1,43 @@
+.settings_header {
+  font-size: 17px;
+}
+
+.settingForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.label {
+  color: gray;
+}
+
+.input_groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.settingsInput {
+  width: 60%;
+  height: 20px;
+  border: 1px solid #bfbfbf;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.settingsInput:focus {
+  outline: gray;
+}
+
+.button {
+  width: 60%;
+  background-color: #f04f2f;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 30px;
+  cursor: pointer;
+}

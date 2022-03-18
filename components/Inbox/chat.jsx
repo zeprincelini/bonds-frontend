@@ -35,7 +35,7 @@ const Chat = ({ currentChat, message, user, createChat, setMessage }) => {
 
   useEffect(() => {
     socket.current.emit("addUser", id);
-    // socket.current.on("allUsers", (users) => console.log(users));
+    socket.current.on("allUsers", (users) => console.log(users));
   }, [id]);
 
   const handleSubmit = () => {

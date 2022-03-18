@@ -6,7 +6,7 @@ import { LogOut } from "../../redux/features/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSignOutAlt,
-  faHome,
+  faThumbsUp,
   faCog,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -37,6 +37,12 @@ const SideBarLeft = () => {
           <WrapperLeftLinks pathname={router.pathname}>
             <FontAwesomeIcon icon={faCog} />
             <li>Settings</li>
+          </WrapperLeftLinks>
+        </Link>
+        <Link href={`/post/${id}`} passHref>
+          <WrapperLeftLinks pathname={router.pathname}>
+            <FontAwesomeIcon icon={faThumbsUp} />
+            <li>Liked Posts</li>
           </WrapperLeftLinks>
         </Link>
       </div>

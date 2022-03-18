@@ -153,7 +153,7 @@ const Profile = ({ user, profileId }) => {
     <>
       <Toaster />
       <Banner>
-        <div style={{ width: "100%", height: "100%" }}>
+        <div style={{ width: "100%", height: "100%", padding: "10px" }}>
           <Image
             src={
               user.coverPhoto.length > 0
@@ -162,7 +162,7 @@ const Profile = ({ user, profileId }) => {
             }
             width="100%"
             height="100%"
-            layout="fill"
+            layout="responsive"
             objectFit="cover"
             alt="banner"
             className="bannerImg"
@@ -219,7 +219,12 @@ const Profile = ({ user, profileId }) => {
       </ProfileUser>
       <ProfileBody>
         <div className="profileBodyLeft">
-          {id === profileId && <PostForm toast={toast} reload={forceRefresh} />}
+          {id === profileId && (
+            <div style={{ marginBottom: "40px" }}>
+              {" "}
+              <PostForm toast={toast} reload={forceRefresh} />{" "}
+            </div>
+          )}
           {loading && (
             <div style={{ textAlign: "center", padding: "10px" }}>
               <FontAwesomeIcon

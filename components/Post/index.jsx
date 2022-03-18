@@ -56,7 +56,7 @@ const PostComponent = ({ toast, post, reload }) => {
           <div className="postTopLeft">
             <Image
               src={
-                post.user.profilePicture
+                post.user?.profilePicture
                   ? post.user.profilePicture
                   : "https://picsum.photos/50/50"
               }
@@ -66,12 +66,12 @@ const PostComponent = ({ toast, post, reload }) => {
               className="postImg"
               onClick={() => router.replace(`/profile/${post.user._id}`)}
             />
-            <p>{post.user.username}</p>
+            <p>{post.user?.username}</p>
             <p style={{ color: "gray", fontSize: "13px" }}>
               {format(post.createdAt)}
             </p>
           </div>
-          {post.user._id === id ||
+          {post.user?._id === id ||
             (post.user === id && (
               <div className="postTopRight" onClick={toggle}>
                 <FontAwesomeIcon icon={faEllipsisV} />
@@ -90,7 +90,7 @@ const PostComponent = ({ toast, post, reload }) => {
         <div className="postBody">
           <Image
             src={
-              post.img.includes("cloudinary")
+              post.img?.includes("cloudinary")
                 ? post.img
                 : "/assets/images/ppl.jpg"
             }

@@ -4,18 +4,31 @@ import HomeLayout from "../../layouts/home/home";
 import PostComponent from "../../components/Post";
 import toast, { Toaster } from "react-hot-toast";
 
-const Post = ({ post }) => {
+const Post = ({ posts }) => {
   return (
     <>
       <Toaster />
-      <PostComponent toast={toast} post={post} />
+      {posts && posts.length > 0 ? (
+        posts.map((post) => {
+          return (
+            <PostComponent
+              key={post._id}
+              toast={toast}
+              post={post}
+              // reload={forceRefresh}
+            />
+          );
+        })
+      ) : (
+        <p style={{ color: "gray", fontSize: "14px" }}>no liked posts!</p>
+      )}
     </>
   );
 };
 
 export const getServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
-  const postId = context.params.postId;
+  const id = context.params.userId;
 
   if (!token) {
     return {
@@ -25,7 +38,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const res = await axios.get(`${PostBase}/${postId}`, {
+  const res = await axios.get(`${PostBase}/liked/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -34,7 +47,7 @@ export const getServerSideProps = async (context) => {
   const data = res.data.data;
 
   return {
-    props: { post: data },
+    props: { posts: data },
   };
 };
 
