@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
@@ -53,7 +53,6 @@ const ResetPassword = ({ id }) => {
 
   return (
     <>
-      <Toaster />
       <Title title="reset password" />
       <Card height="350px">
         <Logo>

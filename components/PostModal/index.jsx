@@ -12,7 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import { format } from "timeago.js";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const PostModal = ({ open, setOpen, postID }) => {
   Modal.setAppElement("#__next");
@@ -74,7 +74,6 @@ const PostModal = ({ open, setOpen, postID }) => {
   };
   return (
     <Modal isOpen={open}>
-      <Toaster />
       <Dialog>
         <div className="post-top">
           <div className="profile">

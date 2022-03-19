@@ -38,7 +38,7 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   width: 100%;
-  background-color: #f04f2f;
+  background-color: ${(props) => (props.loader ? "#F8AD9F;" : "#f04f2f;")}
   border: none;
   border-radius: 10px;
   padding: 10px;
@@ -46,10 +46,10 @@ export const Button = styled.button`
   font-weight: bold;
   margin-top: 30px;
   margin-bottom: ${(props) => props.mb};
-  cursor: pointer;
-
+  cursor: ${(props) => (props.loader ? "not-allowed;" : "pointer;")}
   &:focus {
     transform: scale(1.02);
+    outline: none;
   }
 `;
 
@@ -65,4 +65,12 @@ export const Footer = styled.div`
     cursor: pointer;
     margin-bottom: 15px;
   }
+`;
+
+export const Error = styled.div`
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: red;
+  color: #fff;
 `;

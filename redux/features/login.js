@@ -5,7 +5,8 @@ const initialState = {
   user: null,
   id: null,
   loading: false,
-  error: null,
+  // error: null,
+  // errorStatus: false,
 };
 
 export const loginSlice = createSlice({
@@ -23,8 +24,9 @@ export const loginSlice = createSlice({
       state.token = accessToken;
       state.id = id;
     },
-    loginFail: (state, action) => {
-      state.error = action.payload;
+    loginFail: (state) => {
+      // state.errorStatus = true;
+      // state.error = action.payload;
       state.loading = false;
     },
     logOut: () => initialState,

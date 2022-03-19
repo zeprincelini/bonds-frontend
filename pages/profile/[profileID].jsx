@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import PostForm from "../../components/Post/PostForm";
 import PostComponent from "../../components/Post";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -151,18 +151,21 @@ const Profile = ({ user, profileId }) => {
 
   return (
     <>
-      <Toaster />
       <Banner>
-        <div style={{ width: "100%", height: "100%", padding: "10px" }}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            padding: "10px",
+          }}
+        >
           <Image
             src={
               user.coverPhoto.length > 0
                 ? user.coverPhoto
                 : "/assets/images/banner.jpg"
             }
-            width="100%"
-            height="100%"
-            layout="responsive"
+            layout="fill"
             objectFit="cover"
             alt="banner"
             className="bannerImg"

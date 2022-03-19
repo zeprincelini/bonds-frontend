@@ -2,12 +2,11 @@ import { PostBase } from "../../http-requests/api";
 import axios from "axios";
 import HomeLayout from "../../layouts/home/home";
 import PostComponent from "../../components/Post";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Post = ({ posts }) => {
   return (
     <>
-      <Toaster />
       {posts && posts.length > 0 ? (
         posts.map((post) => {
           return (

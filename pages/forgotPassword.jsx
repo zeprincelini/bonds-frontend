@@ -5,7 +5,7 @@ import Image from "next/image";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import Title from "../components/title";
 import AuthLayout from "../layouts/auth/auth";
@@ -45,7 +45,6 @@ const ForgotPassword = () => {
   };
   return (
     <>
-      <Toaster />
       <Title title="forgot password" />
       <Card height="250px">
         <Logo>

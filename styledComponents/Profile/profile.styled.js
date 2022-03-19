@@ -11,13 +11,8 @@ export const Main = styled.div`
 
 export const Banner = styled.div`
   position: relative;
+  width: 100%;
   height: 300px;
-  .bannerImg {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
   .banner-icon {
     position: absolute;
     right: 20px;

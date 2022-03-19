@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import Title from "../components/title";
 import {
@@ -25,7 +25,6 @@ const Login = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.loginReducer);
-  const { error } = useSelector((state) => state.loginReducer);
   const validation = yup.object({
     email: yup
       .string()
@@ -39,7 +38,7 @@ const Login = () => {
       password: "",
     },
     validationSchema: validation,
-    onSubmit: (values) => LoginUser(values, dispatch, router),
+    onSubmit: (values) => LoginUser(values, dispatch, router, toast),
   });
 
   return (
@@ -55,8 +54,7 @@ const Login = () => {
           />
         </Logo>
         <>
-          <Toaster />
-          {/* {error !== null && toast.error(error)} */}
+          {/* {errorStatus && toast.error(error)} */}
           <div>
             <form onSubmit={formik.handleSubmit}>
               <div style={{ marginBottom: "20px" }}>
@@ -100,7 +98,7 @@ const Login = () => {
                   value={formik.values.password}
                 />
               </div>
-              <Button type="submit">
+              <Button type="submit" loader={loading}>
                 {loading ? (
                   <FontAwesomeIcon
                     icon={faSpinner}

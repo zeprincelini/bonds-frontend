@@ -5,7 +5,7 @@ import HomeLayout from "../layouts/home/home";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FriendsPosts } from "../http-requests/api";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import PostComponent from "../components/Post";
 import PostForm from "../components/Post/PostForm";
 
@@ -41,7 +41,6 @@ export default function Home({ token, id }) {
   }, [refresh, id, token]);
   return (
     <>
-      <Toaster />
       <Head>
         <title>Bonds</title>
         <meta charSet="utf-8" />

@@ -179,7 +179,7 @@ const Register = () => {
                   value={formik.values.confirmPassword}
                 />
               </div>
-              <Button type="submit">
+              <Button type="submit" loader={loading}>
                 {loading ? (
                   <FontAwesomeIcon
                     icon={faSpinner}
