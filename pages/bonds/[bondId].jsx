@@ -11,7 +11,7 @@ const Bonds = ({ user }) => {
         <input type="search" placeholder="search bonds" />
       </div>
       {user.length < 0 ? (
-        <p>no bonds added</p>
+        <p style={{ color: "gray" }}>no bonds added</p>
       ) : (
         <div className="grid">
           {user && user.map((val) => <Chips user={val} key={val._id} />)}
