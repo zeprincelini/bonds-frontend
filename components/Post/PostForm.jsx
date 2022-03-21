@@ -42,6 +42,8 @@ const PostForm = (props) => {
       });
       props.toast.success(res.data.message);
       setLoad(false);
+      desc.current.value = "";
+      setImg(null);
       props.reload();
     } catch (err) {
       setLoad(false);
@@ -113,9 +115,10 @@ const PostForm = (props) => {
         <div style={{ position: "relative", display: "flex", padding: "5px" }}>
           <Image
             src={URL.createObjectURL(img)}
-            width="80px"
-            height="80px"
+            width="50px"
+            height="50px"
             alt="select image"
+            className="rounded-img"
           />
           <FontAwesomeIcon
             icon={faTimesCircle}

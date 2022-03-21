@@ -22,7 +22,7 @@ export default function Home({ token, id }) {
     const getAllPosts = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`${FriendsPosts}/${JSON.parse(id)}`, {
+        const res = await axios.get(`${FriendsPosts}/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

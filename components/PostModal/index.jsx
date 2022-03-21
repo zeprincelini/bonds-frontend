@@ -146,7 +146,7 @@ const PostModal = ({ open, setOpen, postID }) => {
             </div>
           )}
         </div>
-        {post.comment.length > 0 && (
+        {post.comment?.length > 0 && (
           <div className="comment-list">
             {post.comment
               .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
