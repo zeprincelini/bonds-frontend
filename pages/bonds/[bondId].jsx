@@ -10,9 +10,13 @@ const Bonds = ({ user }) => {
       <div className="search">
         <input type="search" placeholder="search bonds" />
       </div>
-      <div className="grid">
-        {user && user.map((val) => <Chips user={val} key={val._id} />)}
-      </div>
+      {user.length < 0 ? (
+        <p>no bonds added</p>
+      ) : (
+        <div className="grid">
+          {user && user.map((val) => <Chips user={val} key={val._id} />)}
+        </div>
+      )}
     </Container>
   );
 };

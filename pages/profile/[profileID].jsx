@@ -326,12 +326,12 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const res = await axios.get(`${GetUser}/${context.params.profileId}`, {
+  const res = await axios.get(`${GetUser}/${profileId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log(context.params);
+
   const data = res.data.data;
 
   return {
