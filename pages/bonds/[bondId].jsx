@@ -5,7 +5,6 @@ import { Container } from "../../styledComponents/Bond/bonds.styled";
 import Chips from "../../components/Bonds/Chips";
 import { GetFriends } from "../../http-requests/api";
 const Bonds = ({ user }) => {
-  console.log(user);
   return (
     <Container>
       <div className="search">
@@ -35,13 +34,13 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const res = axios.get(`${GetFriends}/${id}`, {
+  const res = await axios.get(`${GetFriends}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  const data = (await res).data.data;
+  const data = res.data.data;
 
   return {
     props: { user: data },
