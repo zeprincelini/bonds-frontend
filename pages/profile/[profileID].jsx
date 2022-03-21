@@ -316,7 +316,7 @@ const Profile = ({ user, profileId }) => {
 
 export const getServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
-  const profileId = context.params.profileId;
+  const id = context.params.profileId;
 
   if (!token) {
     return {
@@ -326,7 +326,7 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const res = await axios.get(`${GetUser}/${profileId}`, {
+  const res = await axios.get(`${GetUser}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -335,13 +335,23 @@ export const getServerSideProps = async (context) => {
   const data = res.data.data;
 
   return {
-    props: { user: data, profileId },
+    props: { user: data, profileId: id },
   };
 };
 
 // export async function getStaticProps(context) {
 //   const token = context.req.cookies["token"];
 //   const profileId = context.params.profileId;
+
+//if (!token) {
+//     return {
+//       redirect: {
+//         destination: "/login",
+//         permanent: false,
+//       },
+//     };
+//   }
+
 //   const res = await axios.get(`${GetUser}/${profileId}`, {
 //     headers: {
 //       Authorization: `Bearer ${token}`,
