@@ -5,6 +5,7 @@ import { Container } from "../../styledComponents/Bond/bonds.styled";
 import Chips from "../../components/Bonds/Chips";
 import { GetFriends } from "../../http-requests/api";
 const Bonds = ({ user }) => {
+  console.log(user);
   return (
     <Container>
       <div className="search">
