@@ -1,8 +1,8 @@
 const dev = process.env.NODE_ENV === "development";
 
 const url = dev
-  ? "http://localhost:5000/api"
-  : "https://bonds-backend-project.herokuapp.com/api";
+  ? "http://localhost:5000/api/v1"
+  : "https://bonds-backend-project.herokuapp.com/api/v1";
 
 export const Sign_In = url + "/auth/login";
 export const Sign_Up = url + "/auth/register";
