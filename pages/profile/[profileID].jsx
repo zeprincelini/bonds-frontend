@@ -52,7 +52,6 @@ const Profile = ({ user, profileId }) => {
           },
         });
         setLoading(false);
-        console.log(res.data.data);
         setPosts(
           res.data.data.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -332,7 +331,7 @@ export const getServerSideProps = async (context) => {
       Authorization: `Bearer ${token}`,
     },
   });
-
+  console.log(context.params);
   const data = res.data.data;
 
   return {
@@ -342,7 +341,8 @@ export const getServerSideProps = async (context) => {
 
 // export async function getStaticProps(context) {
 //   const token = context.req.cookies["token"];
-//   const res = await axios.get(`${GetUser}/${context.params.profileId}`, {
+//   const profileId = context.params.profileId;
+//   const res = await axios.get(`${GetUser}/${profileId}`, {
 //     headers: {
 //       Authorization: `Bearer ${token}`,
 //     },
@@ -351,7 +351,7 @@ export const getServerSideProps = async (context) => {
 //   const data = res.data.data;
 
 //   return {
-//     props: { posts: data },
+//     props: { posts: data, profileId },
 //   };
 // }
 

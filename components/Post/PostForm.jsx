@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
 import { PostBase } from "../../http-requests/api";
+import toast from "react-hot-toast";
 
 const PostForm = (props) => {
   const { token, id, user } = useSelector((state) => state.loginReducer);
@@ -29,6 +30,9 @@ const PostForm = (props) => {
 
   const createPost = async (e) => {
     e.preventDefault();
+    if (desc.current.value === "" || null) {
+      return toast.error("post cannot be empty");
+    }
     const formData = new FormData();
     formData.append("user", id);
     formData.append("description", desc.current.value);
@@ -112,11 +116,18 @@ const PostForm = (props) => {
         </button>
       </div>
       {img && (
-        <div style={{ position: "relative", display: "flex", padding: "5px" }}>
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            padding: "5px",
+            top: "-50px",
+          }}
+        >
           <Image
             src={URL.createObjectURL(img)}
-            width="50px"
-            height="50px"
+            width="70px"
+            height="70px"
             alt="select image"
             className="rounded-img"
           />

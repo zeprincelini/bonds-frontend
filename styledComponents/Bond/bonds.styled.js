@@ -40,6 +40,8 @@ export const Chip = styled.div`
   &:hover {
     transform: scale(1.04);
     background: #f04f2f;
+  }
+  &:hover .chipBody {
     color: #fff;
   }
 `;
