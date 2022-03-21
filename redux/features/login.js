@@ -23,6 +23,13 @@ export const loginSlice = createSlice({
       const { id } = state.user;
       state.token = accessToken;
       state.id = id;
+      //cookie
+      document.cookie = `id=${id}; expires=${new Date(
+        Date.now() + 172800 * 1000
+      )}; Secure`;
+      document.cookie = `token=${accessToken}; expires=${new Date(
+        Date.now() + 172800 * 1000
+      )}; Secure`;
     },
     loginFail: (state) => {
       // state.errorStatus = true;
