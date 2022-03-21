@@ -5,16 +5,19 @@ import { Container } from "../../styledComponents/Bond/bonds.styled";
 import Chips from "../../components/Bonds/Chips";
 import { GetFriends } from "../../http-requests/api";
 const Bonds = ({ user }) => {
+  console.log(user);
   return (
     <Container>
       <div className="search">
         <input type="search" placeholder="search bonds" />
       </div>
-      {user.length < 0 ? (
+      {user && user.length <= 0 ? (
         <p style={{ color: "gray" }}>no bonds added</p>
       ) : (
         <div className="grid">
-          {user && user.map((val) => <Chips user={val} key={val._id} />)}
+          {user.map((val) => (
+            <Chips user={val} key={val._id} />
+          ))}
         </div>
       )}
     </Container>
