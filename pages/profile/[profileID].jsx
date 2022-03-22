@@ -326,7 +326,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const res = await axios.get(`${GetUser}/${id}`, {
+  const res = await axios.get(`${GetUser}/6235de022fe4d7598d4adf61`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
