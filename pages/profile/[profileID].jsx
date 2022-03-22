@@ -315,7 +315,7 @@ const Profile = ({ user, profileId }) => {
 };
 
 export async function getServerSideProps(context) {
-  const token = context.req.cookies["tokenn"];
+  const token = context.req.cookies["token"];
   const id = context.params.profileId;
 
   if (!token) {
@@ -328,7 +328,7 @@ export async function getServerSideProps(context) {
   }
   const res = await axios.get(`${GetUser}/${id}`, {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer jhjh`,
     },
   });
 
