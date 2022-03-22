@@ -316,7 +316,7 @@ const Profile = ({ user, profileId }) => {
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
-  const id = context.params.profileId;
+  const id = await context.params?.profileId;
 
   if (!token) {
     return {
@@ -326,7 +326,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const res = await axios.get(`${GetUser}/6235de022fe4d7598d4adf61`, {
+  const res = await axios.get(`${GetUser}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -338,54 +338,6 @@ export async function getServerSideProps(context) {
     props: { user: data, profileId: id },
   };
 }
-
-// export async function getStaticProps(context) {
-//   const token = context.req.cookies["token"];
-//   const profileId = context.params.profileId;
-
-//if (!token) {
-//     return {
-//       redirect: {
-//         destination: "/login",
-//         permanent: false,
-//       },
-//     };
-//   }
-
-//   const res = await axios.get(`${GetUser}/${profileId}`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-
-//   const data = res.data.data;
-
-//   return {
-//     props: { posts: data, profileId },
-//   };
-// }
-
-// export async function getStaticPaths() {
-//   const res = await axios.get(`${GetUser}/accounts`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-
-//   const allusers = res.data;
-
-//   const ids = allusers.map((id) => {
-//     return id._id;
-//   });
-
-//   const paths = ids.map((id) => {
-//     return { params: { profileId: id.toString() } };
-//   });
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
 
 export default Profile;
 
