@@ -155,7 +155,7 @@ const Profile = ({ user, profileId }) => {
           style={{
             width: "100%",
             height: "100%",
-            padding: "10px",
+            padding: "4px 10px",
           }}
         >
           <Image
@@ -164,7 +164,9 @@ const Profile = ({ user, profileId }) => {
                 ? user.coverPhoto
                 : "/assets/images/banner.jpg"
             }
-            layout="fill"
+            layout="responsive"
+            width={100}
+            height={30}
             objectFit="cover"
             alt="banner"
             className="bannerImg"
@@ -288,9 +290,9 @@ const Profile = ({ user, profileId }) => {
                                 : "https://picsum.photos/80/80"
                             }
                             alt="profile"
-                            width="80px"
-                            height="80px"
-                            className="rounded-img"
+                            width="70px"
+                            height="70px"
+                            // className="rounded-img"
                           />
                           <span
                             style={{

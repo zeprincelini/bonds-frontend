@@ -23,3 +23,5 @@ export const GetComments = url + "/comment";
 
 export const Forgotpassword = url + "/auth/forgot/password";
 export const Resetpassword = url + "/auth/reset/password";
+
+export const SearchUsers = url + "/user/search";

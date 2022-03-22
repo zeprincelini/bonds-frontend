@@ -119,7 +119,7 @@ const PostForm = (props) => {
         <div
           style={{
             position: "relative",
-            display: "flex",
+            display: "inline-flex",
             padding: "5px",
             top: "-50px",
           }}

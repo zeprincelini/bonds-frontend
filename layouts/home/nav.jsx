@@ -1,14 +1,19 @@
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
   Navigation,
   Search,
 } from "../../styledComponents/Homepage/home.styled";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { setSearchValue } from "../../redux/features/search";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const { id } = useSelector((state) => state.loginReducer);
+  const router = useRouter();
   return (
     <Navigation>
       <Link href="/">
@@ -21,7 +26,10 @@ const NavBar = () => {
           />
         </a>
       </Link>
-      <Search>
+      <Search
+        onClick={() => router.replace("/search")}
+        onChange={(e) => dispatch(setSearchValue(e.target.value))}
+      >
         <FontAwesomeIcon
           icon={faSearch}
           style={{ marginLeft: "10px", color: "gray" }}
