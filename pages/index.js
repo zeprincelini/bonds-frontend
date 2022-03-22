@@ -52,7 +52,7 @@ export default function Home({ token, id }) {
       <div style={{ marginBottom: "40px" }}>
         <PostForm toast={toast} reload={forceRefresh} />
       </div>
-      {loading && (
+      {loading ? (
         <div style={{ textAlign: "center", padding: "10px" }}>
           <FontAwesomeIcon
             icon={faSpinner}
@@ -60,20 +60,23 @@ export default function Home({ token, id }) {
             className="fa-spin"
           />
         </div>
-      )}
-      {posts && posts.length > 0 ? (
-        posts.map((post) => {
-          return (
-            <PostComponent
-              key={post._id}
-              toast={toast}
-              post={post}
-              reload={forceRefresh}
-            />
-          );
-        })
       ) : (
-        <p style={{ color: "gray", fontSize: "14px" }}>no posts yet!</p>
+        <>
+          {posts && posts.length > 0 ? (
+            posts.map((post) => {
+              return (
+                <PostComponent
+                  key={post._id}
+                  toast={toast}
+                  post={post}
+                  reload={forceRefresh}
+                />
+              );
+            })
+          ) : (
+            <p style={{ color: "gray", fontSize: "14px" }}>no posts yet!</p>
+          )}
+        </>
       )}
     </>
   );

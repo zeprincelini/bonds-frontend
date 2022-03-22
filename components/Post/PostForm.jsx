@@ -128,8 +128,8 @@ const PostForm = (props) => {
             src={URL.createObjectURL(img)}
             width="70px"
             height="70px"
+            objectFit="cover"
             alt="select image"
-            className="rounded-img"
           />
           <FontAwesomeIcon
             icon={faTimesCircle}

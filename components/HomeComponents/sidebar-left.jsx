@@ -39,7 +39,19 @@ const SideBarLeft = () => {
             <li>Settings</li>
           </WrapperLeftLinks>
         </Link>
-        <Link href={`/post/${id}`} passHref>
+        {/* <Link href={`/post/${id}`} passHref>
+          <WrapperLeftLinks pathname={router.pathname}>
+            <FontAwesomeIcon icon={faThumbsUp} />
+            <li>Liked Posts</li>
+          </WrapperLeftLinks>
+        </Link> */}
+        <Link
+          href={{
+            pathname: "/post/[profileId]",
+            query: { profileId: id },
+          }}
+          passHref
+        >
           <WrapperLeftLinks pathname={router.pathname}>
             <FontAwesomeIcon icon={faThumbsUp} />
             <li>Liked Posts</li>

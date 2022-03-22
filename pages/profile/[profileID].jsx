@@ -316,7 +316,7 @@ const Profile = ({ user, profileId }) => {
 
 export const getServerSideProps = async (context) => {
   const token = context.req.cookies["token"];
-  const id = context.params.profileId;
+  const id = context.query.profileId;
 
   if (!token) {
     return {
