@@ -9,26 +9,35 @@ import {
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { setSearchValue } from "../../redux/features/search";
+import debounce from "lodash.debounce";
+import Image from "next/image";
+import { useCallback } from "react";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const { id } = useSelector((state) => state.loginReducer);
   const router = useRouter();
+
+  const debouncedSearch = debounce((e) => {
+    dispatch(setSearchValue(e.target.value));
+  }, 700);
+
   return (
     <Navigation>
       <Link href="/">
         <a>
-          <img
+          <Image
             src="/assets/logo/bondss-02.png"
             alt="logo"
             width="150px"
-            height="auto"
+            height="50px"
+            objectFit="contain"
           />
         </a>
       </Link>
       <Search
         onClick={() => router.replace("/search")}
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
+        onChange={debouncedSearch}
       >
         <FontAwesomeIcon
           icon={faSearch}
