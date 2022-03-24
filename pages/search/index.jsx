@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { SearchUsers } from "../../http-requests/api";
+import { useRouter } from "next/router";
+
+import { GetUser, SearchUsers } from "../../http-requests/api";
 import toast from "react-hot-toast";
 import HomeLayout from "../../layouts/home/home";
 import { Card, Container } from "../../styledComponents/search/search.styled";
 
-const Search = ({ token }) => {
+const Search = ({ token, user }) => {
   const { searchValue } = useSelector((state) => state.searchReducer);
-
+  const router = useRouter();
   const [data, setData] = useState([]);
-  console.log(searchValue);
 
   useEffect(() => {
     const searchDb = async () => {
@@ -36,9 +37,12 @@ const Search = ({ token }) => {
       {data.length > 0 ? (
         <Container>
           {data.map((item) => (
-            <Card key={item._id}>
+            <Card
+              key={item._id}
+              onClick={() => router.push(`/profile/${item._id}`)}
+            >
               <div
-                style={{ width: "100%", height: "150px", textAlign: "center" }}
+                style={{ width: "100%", height: "auto", textAlign: "center" }}
               >
                 <Image
                   src={
@@ -50,6 +54,7 @@ const Search = ({ token }) => {
                   height="100%"
                   objectFit="cover"
                   alt="profile"
+                  className="rounded-img"
                 />
               </div>
               <p className="search-name">{item.username}</p>
@@ -65,6 +70,7 @@ const Search = ({ token }) => {
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies["token"];
+  const id = context.req.cookies["id"];
 
   if (!token) {
     return {
@@ -75,8 +81,16 @@ export async function getServerSideProps(context) {
     };
   }
 
+  const res = await axios.get(`${GetUser}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const user = res.data.data;
+
   return {
-    props: { token },
+    props: { token, user },
   };
 }
 

@@ -5,7 +5,7 @@ import {
   faPeopleArrows,
   faSpinner,
   faPlus,
-  faTimes,
+  faCheck,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -211,7 +211,7 @@ const Profile = ({ user, profileId }) => {
           <button onClick={() => bond()}>
             {checkBond ? (
               <>
-                Bail <FontAwesomeIcon icon={faTimes} color="#ffffff" />
+                <FontAwesomeIcon icon={faCheck} color="#ffffff" />
               </>
             ) : (
               <>

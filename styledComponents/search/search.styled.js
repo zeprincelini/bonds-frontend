@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 2rem;
 `;
 
@@ -19,5 +19,6 @@ export const Card = styled.div`
   }
   .search-name {
     color: gray;
+    text-align: center;
   }
 `;
