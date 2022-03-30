@@ -86,6 +86,9 @@ export const WrapperLeft = styled.div`
     background: #c1c1c1;
     border-radius: 20px;
   }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const WrapperLeftLinks = styled.a`
@@ -299,6 +302,9 @@ export const WrapperRight = styled.div`
         }
       }
     }
+  }
+  @media (max-width: 800px) {
+    display: none;
   }
 `;
 
