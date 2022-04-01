@@ -27,6 +27,40 @@ a {
   border-radius: 50%;
 }
 
+/*modal style start*/
+
+.modal {
+  position: absolute;
+  /* inset: 40px; */
+  /* top: 40px;
+  right: 40px;
+  left: 40px;
+  bottom: 40px; */
+  top: 40px;
+  height: 600px;
+  width: 60%;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*modal style end*/
+
+/*proloader start*/
+
 .pre-loader {
   position: relative;
   width: 100%;
@@ -63,6 +97,10 @@ a {
   animation-delay: 2.5s;
 }
 
+/*preloader end*/
+
+/*animation*/
+
 @keyframes bop {
   0% {
     transform: translateY(0px);
@@ -72,5 +110,20 @@ a {
   }
   100% {
     transform: translateY(0px);
+  }
+}
+
+/*media queries*/
+
+@media (max-width: 768px) {
+  .modal {
+    /* top: 40px;
+    right: 5px;
+    left: 5px;
+    bottom: 40px; */
+    top: 60px;
+    height: 500px;
+    width: 95%;
+    padding: 8px;
   }
 }

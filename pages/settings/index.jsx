@@ -30,7 +30,7 @@ const Settings = ({ token, id }) => {
   return (
     <>
       <div className={styles.settingsContainer}>
-        <div style={{ flex: 1, width: "60%" }}>
+        <div className={styles.settingsWrapper}>
           <h4 className={styles.settings_header}>Edit Profile</h4>
           <form onSubmit={updateUser} className={styles.settingForm}>
             <div className={styles.input_groups}>

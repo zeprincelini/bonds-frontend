@@ -30,6 +30,15 @@ export const Navigation = styled.div`
       }
     }
   }
+
+  @media (max-width: 768px) {
+    display: block;
+    height: auto;
+    padding-bottom: 10px;
+    ul {
+      display: none;
+    }
+  }
 `;
 
 export const Search = styled.div`
@@ -48,6 +57,9 @@ export const Search = styled.div`
   }
   input[type="search"]:focus {
     outline: none;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -86,7 +98,7 @@ export const WrapperLeft = styled.div`
     background: #c1c1c1;
     border-radius: 20px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     display: none;
   }
 `;
@@ -332,6 +344,9 @@ export const Dialog = styled.div`
       border: none;
       background: #f0522d;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
   .post-body {
@@ -386,5 +401,28 @@ export const Dialog = styled.div`
     .comment-main {
       margin-top: 10px;
     }
+  }
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+`;
+
+export const Floater = styled.div`
+  position: fixed;
+  left: 0px;
+  top: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px 10px 5px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  background: #f04f2f;
+  cursor: pointer;
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
   }
 `;

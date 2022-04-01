@@ -73,7 +73,7 @@ const PostModal = ({ open, setOpen, postID }) => {
     }
   };
   return (
-    <Modal isOpen={open}>
+    <Modal isOpen={open} className="modal" overlayClassName="overlay">
       <Dialog>
         <div className="post-top">
           <div className="profile">

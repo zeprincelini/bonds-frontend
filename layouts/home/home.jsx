@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/dist/client/router";
 import NavBar from "./nav";
 import Footer from "./footer";
@@ -8,6 +7,7 @@ import {
 } from "../../styledComponents/Homepage/home.styled";
 import SideBarLeft from "../../components/HomeComponents/sidebar-left";
 import SideBarRight from "../../components/HomeComponents/sidebar-right";
+import FloatingNav from "../../components/mobileNavigation/floater";
 
 const HomeLayout = ({ children }) => {
   const paths = ["/inbox", "/bonds/[bondId]"];
@@ -24,6 +24,7 @@ const HomeLayout = ({ children }) => {
         <>
           <NavBar />
           <Wrapper>
+            <FloatingNav />
             <SideBarLeft />
             <WrapperMid>{children}</WrapperMid>
             <SideBarRight />
