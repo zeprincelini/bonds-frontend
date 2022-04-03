@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faInbox,
+  faComments,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Navigation,
   Search,
@@ -11,7 +15,6 @@ import { useRouter } from "next/router";
 import { setSearchValue } from "../../redux/features/search";
 import debounce from "lodash.debounce";
 import Image from "next/image";
-import { useCallback } from "react";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -24,17 +27,26 @@ const NavBar = () => {
 
   return (
     <Navigation>
-      <Link href="/">
-        <a>
-          <Image
-            src="/assets/logo/bondss-02.png"
-            alt="logo"
-            width="150px"
-            height="50px"
-            objectFit="contain"
+      <div className="isMobile">
+        <Link href="/">
+          <a>
+            <Image
+              src="/assets/logo/bondss-02.png"
+              alt="logo"
+              width="150px"
+              height="50px"
+              objectFit="contain"
+            />
+          </a>
+        </Link>
+        {/* <Link href="/inbox" className="mobile-inbox">
+          <FontAwesomeIcon
+            icon={faComments}
+            color="gray"
+            style={{ marginRight: "13px", fontSize: "20px" }}
           />
-        </a>
-      </Link>
+        </Link> */}
+      </div>
       <Search
         onClick={() => router.replace("/search")}
         onChange={debouncedSearch}

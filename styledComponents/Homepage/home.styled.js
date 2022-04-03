@@ -12,7 +12,20 @@ export const Navigation = styled.div`
   position: sticky;
   top: 0px;
   z-index: 1;
-
+  .isMobile {
+    display: block;
+    .mobile-inbox {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      .mobile-inbox {
+        display: block;
+      }
+    }
+  }
   ul {
     display: flex;
     align-items: center;
@@ -34,7 +47,7 @@ export const Navigation = styled.div`
   @media (max-width: 768px) {
     display: block;
     height: auto;
-    padding-bottom: 10px;
+    padding: 3px 5px 10px 5px;
     ul {
       display: none;
     }
@@ -163,6 +176,9 @@ export const SignOut = styled.div`
 export const WrapperMid = styled.div`
   flex: 6.5;
   padding: 30px;
+  @media (max-width: 768px) {
+    padding: 20px 5px;
+  }
 `;
 
 /* wrapperMid section */
@@ -192,6 +208,9 @@ export const Post = styled.form`
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
+    @media (max-width: 768px) {
+      width: auto;
+    }
   }
 `;
 
@@ -239,6 +258,10 @@ export const Posts = styled.div`
         }
         p:nth-child(1) {
           border-bottom: 1px solid #c6c6c6;
+        }
+        @media (max-width: 768px) {
+          left: -100px;
+          z-index: 2;
         }
       }
     }
@@ -404,25 +427,5 @@ export const Dialog = styled.div`
   }
   @media (max-width: 768px) {
     padding: 8px;
-  }
-`;
-
-export const Floater = styled.div`
-  position: fixed;
-  left: 0px;
-  top: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 5px 10px 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  background: #f04f2f;
-  cursor: pointer;
-  display: none;
-  @media (max-width: 768px) {
-    display: block;
   }
 `;

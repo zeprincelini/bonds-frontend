@@ -36,6 +36,10 @@ export const Banner = styled.div`
     top: 77%;
     border: 3px solid #ffffff;
     border-radius: 50%;
+    @media (max-width: 768px) {
+      height: auto;
+      width: 100px;
+    }
   }
 
   .bannerUserImg {
@@ -56,6 +60,9 @@ export const Banner = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  @media (max-width: 768px) {
+    height: auto;
   }
 `;
 
@@ -89,6 +96,9 @@ export const ProfileUser = styled.div`
   button:hover {
     background: #f04f2f;
     color: #ffffff;
+  }
+  @media (max-width: 768px) {
+    margin-top: 100px;
   }
 `;
 
@@ -124,5 +134,11 @@ export const ProfileBody = styled.div`
         align-items: center;
       }
     }
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    padding: 5px;
   }
 `;

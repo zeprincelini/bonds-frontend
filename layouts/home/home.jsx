@@ -14,6 +14,7 @@ const HomeLayout = ({ children }) => {
   const router = useRouter();
   return (
     <>
+      <FloatingNav />
       {paths.includes(router.pathname) ? (
         <>
           <NavBar />
@@ -24,7 +25,6 @@ const HomeLayout = ({ children }) => {
         <>
           <NavBar />
           <Wrapper>
-            <FloatingNav />
             <SideBarLeft />
             <WrapperMid>{children}</WrapperMid>
             <SideBarRight />
