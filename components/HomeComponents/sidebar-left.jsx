@@ -33,16 +33,16 @@ const SideBarLeft = () => {
             <li>Profile</li>
           </WrapperLeftLinks>
         </Link>
-        <Link href="/settings" passHref>
-          <WrapperLeftLinks pathname={router.pathname}>
-            <FontAwesomeIcon icon={faCog} />
-            <li>Settings</li>
-          </WrapperLeftLinks>
-        </Link>
         <Link href={`/post/${id}`} passHref>
           <WrapperLeftLinks pathname={router.pathname}>
             <FontAwesomeIcon icon={faThumbsUp} />
             <li>Liked Posts</li>
+          </WrapperLeftLinks>
+        </Link>
+        <Link href="/settings" passHref>
+          <WrapperLeftLinks pathname={router.pathname}>
+            <FontAwesomeIcon icon={faCog} />
+            <li>Settings</li>
           </WrapperLeftLinks>
         </Link>
       </div>

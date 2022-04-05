@@ -284,7 +284,7 @@ export const PostIcon = styled.div`
   gap: 5px;
   cursor: pointer;
   p {
-    font-weight: 600;
+    color: gray;
   }
 `;
 

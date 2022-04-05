@@ -2,6 +2,7 @@ import { useState } from "react";
 import Link from "next/dist/client/link";
 import {
   faBars,
+  faCog,
   faHome,
   faLink,
   faSignOutAlt,
@@ -133,6 +134,12 @@ const FloatingNav = () => {
             <a>
               <FontAwesomeIcon icon={faThumbsUp} color="#F04F2F" />
               <li>Liked Posts</li>
+            </a>
+          </Link>
+          <Link href="/settings">
+            <a>
+              <FontAwesomeIcon icon={faCog} color="#F04F2F" />
+              <li>Settings</li>
             </a>
           </Link>
           <div onClick={() => signOut()}>
