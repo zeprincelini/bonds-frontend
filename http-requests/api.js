@@ -1,8 +1,10 @@
 const dev = process.env.NODE_ENV === "development";
 
+// process.env.BASEURL_LOCAL;
+// process.env.BASEURL_LIVE;
 const url = dev
   ? "http://localhost:5000/api/v1"
-  : "https://bonds-backend-project.herokuapp.com/api/v1";
+  : "https://bonds-server.onrender.com/api/v1";
 
 export const Sign_In = url + "/auth/login";
 export const Sign_Up = url + "/auth/register";
